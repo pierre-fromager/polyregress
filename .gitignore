@@ -1,0 +1,9 @@
+*.o
+.vscode
+polyregress
+polyregress_test
+!test/polyregress/
+doc/html
+callgrind.*
+.~lock.*
+*.csv
