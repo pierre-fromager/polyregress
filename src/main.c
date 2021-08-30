@@ -14,56 +14,18 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
 #include "gaussjordan.h"
 #include "matrix.h"
 #include "points.h"
 #include "populate.h"
+#include "matcalc.h"
 #include "solution.h"
 
+//#define POLY_DEBUG
 #define MSG_USG_0 "Usage degree x0 y0 x1 y1 .. xn yn:\n"
 #define MSG_USG_1 "echo \"4 1 0 2 2 3 1 4 4 5 2\" | %s - \n"
 #define DSIZE 10
 #define RAW_ARR_SIZE 2048
-#define POLY_DEBUG
-
-static void calc_mpc(gj_vector *mpc, points_t *points, minfo_t *minfo);
-static void calc_rhs(gj_vector *mat, points_t *points, minfo_t *minfo);
-
-static void calc_mpc(gj_vector *mpc, points_t *points, minfo_t *minfo)
-{
-    unsigned cr, cl;
-    double s;
-    (*mpc)[0] = minfo->nbpoints;
-    const unsigned rs = (2 * minfo->degree) + 1;
-    for (cr = 1; cr < rs; cr++)
-    {
-        s = 0;
-        for (cl = 0; cl < minfo->nbpoints; cl++)
-            s += pow((*points)[cl].x, cr);
-        (*mpc)[cr] = s;
-    }
-}
-
-static void calc_rhs(gj_vector *mat, points_t *points, minfo_t *minfo)
-{
-    unsigned c, r, rhs;
-    rhs = 0;
-    for (c = 0; c < minfo->nbpoints; ++c)
-        rhs += (*points)[c].y;
-    mat_set_value(mat, 0, minfo->nbcol - 1, minfo, rhs);
-    rhs = 0;
-    for (c = 0; c < minfo->nbpoints; ++c)
-        rhs += (*points)[c].x * (*points)[c].y;
-    mat_set_value(mat, 1, minfo->nbcol - 1, minfo, rhs);
-    for (r = 2; r < minfo->nbrow; r++)
-    {
-        rhs = 0;
-        for (c = 0; c < minfo->nbpoints; c++)
-            rhs += pow((*points)[c].x, r) * (*points)[c].y;
-        mat_set_value(mat, r, minfo->nbcol - 1, minfo, rhs);
-    }
-}
 
 int main(int argc, char *argv[])
 {
@@ -102,18 +64,16 @@ int main(int argc, char *argv[])
 
     points_init(&raw_data, &points, datacpt);
     free(raw_data);
-    calc_mpc(&mpc, &points, minfo);
+    matcalc_mpc(&mpc, &points, minfo);
     mat_init(&mat, minfo, 0);
 #ifdef POLY_DEBUG
     mat_print(&mat, minfo);
 #endif
-
     mat_set_row(&mat, 0, &mpc, minfo);
     for (c = 0; c < minfo->nbrow; ++c)
         mat_set_col(&mat, c, &mpc, minfo, c);
     free(mpc);
-
-    calc_rhs(&mat, &points, minfo);
+    matcalc_rhs(&mat, &points, minfo);
     free(points);
 #ifdef POLY_DEBUG
     mat_print(&mat, minfo);
@@ -141,9 +101,7 @@ int main(int argc, char *argv[])
     mat_print(&mat, minfo);
     printf("\n");
 #endif
-    //print_sol(&mat, minfo, gjmatColSize);
     solution_print(&mat, minfo, gjmatColSize);
-
     free(minfo);
     free(mat);
     return 0;

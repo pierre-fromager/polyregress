@@ -36,7 +36,7 @@ debug:
 
 .PHONY: doc
 doc:
-	doxygen doc/polygress.conf
+	doxygen doc/polyregress.conf
 
 .PHONY: cleandoc
 cleandoc:
