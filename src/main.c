@@ -80,20 +80,15 @@ int main(int argc, char *argv[])
 #endif
     const size_t gjmatRowSize = sizeof(double) * minfo->nbrow;
     const size_t gjmatColSize = sizeof(double) * minfo->nbcol;
-    // 1D to 2D array
     gjmat = malloc(gjmatRowSize);
     for (r = 0; r < minfo->nbrow; r++)
     {
         gjmat[r] = malloc(gjmatColSize);
-        for (c = 0; c < minfo->nbcol; c++)
-            gjmat[r][c] = mat_get_value(&mat, r, c, minfo);
+        mat_get_row(&mat, minfo, r, &gjmat[r]);
     }
     gj_echelonize(&gjmat, minfo);
-    // 2D to 1D array
     for (r = 0; r < minfo->nbrow; r++)
-        for (c = 0; c < minfo->nbcol; c++)
-            mat_set_value(&mat, r, c, minfo, gjmat[r][c]);
-
+        mat_set_row(&mat, r, &gjmat[r], minfo);
     for (r = 0; r < minfo->nbrow; r++)
         free(gjmat[r]);
     free(gjmat);

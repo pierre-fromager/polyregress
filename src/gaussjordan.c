@@ -3,9 +3,14 @@
 
 static void gj_swap(gj_mat *mat, unsigned i, unsigned k)
 {
+    /*
     gj_vector tmp = (*mat)[i];
     (*mat)[i] = (*mat)[k];
-    (*mat)[k] = tmp;
+    (*mat)[k] = tmp;*/
+
+    gj_vector tmp = *(*mat + i);
+    *(*mat + i) = *(*mat + k);
+    *(*mat + k) = tmp;    
 }
 
 static void gj_divide(gj_mat *mat, unsigned i, unsigned j, unsigned m)
