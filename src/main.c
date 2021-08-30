@@ -18,24 +18,17 @@
 #include "gaussjordan.h"
 #include "matrix.h"
 #include "points.h"
+#include "populate.h"
 #include "solution.h"
 
 #define MSG_USG_0 "Usage degree x0 y0 x1 y1 .. xn yn:\n"
 #define MSG_USG_1 "echo \"4 1 0 2 2 3 1 4 4 5 2\" | %s - \n"
-#define MSG_ERR_POINTS "Error: data not in form of x,y pairs.\n"
-#define MSG_ERR_DEGREE "Warning: polynomial degree %d > nb points %d.\n"
-
-#define DELIM " "
 #define DSIZE 10
-
-#define LINE_BUF_SIZE 128
 #define RAW_ARR_SIZE 2048
 #define POLY_DEBUG
 
 static void calc_mpc(gj_vector *mpc, points_t *points, minfo_t *minfo);
 static void calc_rhs(gj_vector *mat, points_t *points, minfo_t *minfo);
-static void populate_data(gj_vector *rawArray, int *datacpt, int *degree);
-static void check_populate(int datacpt, int degree);
 
 static void calc_mpc(gj_vector *mpc, points_t *points, minfo_t *minfo)
 {
@@ -72,39 +65,6 @@ static void calc_rhs(gj_vector *mat, points_t *points, minfo_t *minfo)
     }
 }
 
-static void populate_data(gj_vector *rawArray, int *datacpt, int *degree)
-{
-    char bufin[LINE_BUF_SIZE];
-    while (fgets(bufin, LINE_BUF_SIZE, stdin))
-    {
-        char *value = strtok(bufin, DELIM);
-        while (value)
-        {
-            if ((*datacpt) == -1)
-                (*degree) = atoi(value);
-            else
-                (*rawArray)[(*datacpt)] = atof(value);
-            value = strtok(NULL, DELIM);
-            (*datacpt)++;
-        }
-    }
-}
-
-static void check_populate(int datacpt, int degree)
-{
-    if (datacpt % 2 != 0)
-    {
-        printf(MSG_ERR_POINTS);
-        exit(EXIT_FAILURE);
-    }
-
-    if (degree + 1 > datacpt / 2)
-    {
-        printf(MSG_ERR_DEGREE, degree, datacpt / 2);
-        exit(EXIT_FAILURE);
-    }
-}
-
 int main(int argc, char *argv[])
 {
     if (argc < 2)
@@ -118,7 +78,7 @@ int main(int argc, char *argv[])
     int degree = 0;
     raw_data = malloc(sizeof(double) * RAW_ARR_SIZE);
     populate_data(&raw_data, &datacpt, &degree);
-    check_populate(datacpt, degree);
+    populate_check(datacpt, degree);
     const int nbPoints = datacpt / 2;
     const size_t psize = sizeof(point_t) * nbPoints;
     const size_t mpcSize = sizeof(double) * datacpt;
