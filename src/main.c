@@ -30,7 +30,7 @@
 
 #define LINE_BUF_SIZE 128
 #define RAW_ARR_SIZE 2048
-//#define POLY_DEBUG
+#define POLY_DEBUG
 
 static void calc_mpc(gj_vector *mpc, points_t *points, minfo_t *minfo);
 static void calc_rhs(gj_vector *mat, points_t *points, minfo_t *minfo);
@@ -144,6 +144,9 @@ int main(int argc, char *argv[])
     free(raw_data);
     calc_mpc(&mpc, &points, minfo);
     mat_init(&mat, minfo, 0);
+#ifdef POLY_DEBUG
+    mat_print(&mat, minfo);
+#endif
 
     mat_set_row(&mat, 0, &mpc, minfo);
     for (c = 0; c < minfo->nbrow; ++c)
@@ -152,7 +155,7 @@ int main(int argc, char *argv[])
 
     calc_rhs(&mat, &points, minfo);
     free(points);
-#ifdef POLY_DEBUG    
+#ifdef POLY_DEBUG
     mat_print(&mat, minfo);
 #endif
     const size_t gjmatRowSize = sizeof(double) * minfo->nbrow;

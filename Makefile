@@ -1,6 +1,6 @@
 CXX = gcc
 CC = $(CXX)
-CFLAGS = -Wall -Wextra -std=c99 -lpthread -lm -g -DDEBUG
+CFLAGS = -Wall -Wextra -std=c99 -lm -g -O2
 
 SRC_FILES = $(wildcard src/*.c) $(wildcard src/**/*.c)
 TST_FILES = $(wildcard test/*.c) $(wildcard test/**/*.c) $(wildcard test/**/**/*.c)
