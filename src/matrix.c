@@ -1,6 +1,11 @@
 
 #include "matrix.h"
 
+static size_t mat_row_asize(minfo_t *minfo)
+{
+    return sizeof(double) * minfo->nbcol;
+}
+
 static unsigned mat_storage(int row, int col, minfo_t *minfo)
 {
     return (row * minfo->nbcol) + col;
@@ -18,7 +23,7 @@ double mat_get_value(gj_vector *mat, int row, int col, minfo_t *minfo)
 
 void mat_get_row(gj_vector *mat, minfo_t *minfo, int row, gj_vector *rowvect)
 {
-    memcpy(*rowvect, *mat + mat_storage(row, 0, minfo), sizeof(double) * minfo->nbcol);
+    memcpy(*rowvect, *mat + mat_storage(row, 0, minfo), mat_row_asize(minfo));
 }
 
 void mat_get_col(gj_vector *mat, minfo_t *minfo, int col, gj_vector *colvect)
@@ -30,7 +35,7 @@ void mat_get_col(gj_vector *mat, minfo_t *minfo, int col, gj_vector *colvect)
 
 void mat_set_row(gj_vector *mat, int row, gj_vector *vect, minfo_t *minfo)
 {
-    memcpy(*mat + mat_storage(row, 0, minfo), *vect, sizeof(double) * minfo->nbcol);
+    memcpy(*mat + mat_storage(row, 0, minfo), *vect, mat_row_asize(minfo));
 }
 
 void mat_swap_row(gj_vector *mat, int i, int k, minfo_t *minfo)
