@@ -1,14 +1,17 @@
 CXX = gcc
 CC = $(CXX)
-CFLAGS = -Werror -Wall -Wextra -Wpedantic -std=c99 -lm -g \
-	-Wformat=2 -Wformat-security -Wno-format-nonliteral \
+CFLAGS = -O2 -Werror -Wall -Wextra -Wpedantic -std=c99 -lm \
+	-v -s -g \
+	-Wno-format-nonliteral \
+	-Wformat=2 -Wformat-security \
 	-Wnull-dereference -Wstack-protector -Wtrampolines -Wvla \
 	-Warray-bounds=2 \
 	-Wtraditional-conversion -Wshift-overflow=2 -Wcast-qual \
 	-Wconversion -Wlogical-op -Wduplicated-cond \
 	-Wformat-signedness -Wshadow -Wstrict-overflow=4 \
 	-Wundef -Wstrict-prototypes -Wswitch-default -Wswitch-enum \
-	-Wstack-usage=1000000 \
+	-Wstack-usage=1000000 #\
+	-fno-asm \
 	-D_FORTIFY_SOURCE=2 \
 	-fstack-protector-strong -fPIE \
 	-fsanitize=address -fsanitize=leak -fno-omit-frame-pointer -fsanitize=undefined \
@@ -56,7 +59,7 @@ cleandoc:
 
 .PHONY: check
 check:
-	cppcheck --check-config --enable=all --suppress=missingIncludeSystem ./src -I ./src
+	cppcheck --check-config --enable=all --std=c99 --suppress=missingIncludeSystem ./src -I ./src
 
 .PHONY: test
 test:$(OBJECTS_TEST) 

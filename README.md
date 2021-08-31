@@ -1,6 +1,6 @@
 # Polyregress
 
-Polyregress is a portage from initial [python polyregress solver](https://arachnoid.com/polysolve/).  
+Polyregress is a c99 portage from initial [python polyregress solver](https://arachnoid.com/polysolve/).  
 It provides polynomial equation from a cloud of points.  
 Higher is the polynomial degree, higher is the accuracy for data fitting.  
 Keep in mind one degree of polynome represents one inflexion.  
@@ -35,7 +35,16 @@ echo "4 1 0 2 2 3 1 4 4 5 2" | ./polyregress -
 
 ## Performance
 
-It performs x20 faster than the initial script.
+It can perform from x3 upto x20 faster than the initial script, depending on **gcc** flags.  
+Default setup is designed for x20.
+
+``` 
+time echo "4 1 0 2 2 3 1 4 4 5 2" | ./polyregress -
+```
+
+Removing the **#** line 13 in Makefile, will enforce security adding sanitizers but downperf to x3.  
+
+Read [Security-related flags and options for C compilers](https://airbus-seclab.github.io/c-compiler-security/) to know more.
 
 ## Accuracy
 
