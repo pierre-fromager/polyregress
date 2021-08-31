@@ -21,7 +21,7 @@
 #include "matcalc.h"
 #include "solution.h"
 
-//#define POLY_DEBUG
+// #define POLY_DEBUG
 #define MSG_USG_0 "Usage degree x0 y0 x1 y1 .. xn yn:\n"
 #define MSG_USG_1 "echo \"4 1 0 2 2 3 1 4 4 5 2\" | %s - \n"
 #define DSIZE 10
@@ -52,11 +52,10 @@ int main(int argc, char *argv[])
     minfo->nbrow = minfo->degree + 1;
     minfo->nbpoints = nbPoints;
     const size_t msize = (minfo->nbcol * minfo->nbrow) * sizeof(double);
-    unsigned c, r;
+    unsigned c;
     points_t points;
     gj_vector mpc;
     gj_vector mat;
-    gj_mat gjmat;
 
     points = malloc(psize);
     mpc = malloc(mpcSize);
@@ -78,25 +77,12 @@ int main(int argc, char *argv[])
 #ifdef POLY_DEBUG
     mat_print(&mat, minfo);
 #endif
-    const size_t gjmatRowSize = sizeof(double) * minfo->nbrow;
-    const size_t gjmatColSize = sizeof(double) * minfo->nbcol;
-    gjmat = malloc(gjmatRowSize);
-    for (r = 0; r < minfo->nbrow; r++)
-    {
-        gjmat[r] = malloc(gjmatColSize);
-        mat_get_row(&mat, minfo, r, &gjmat[r]);
-    }
-    gj_echelonize(&gjmat, minfo);
-    for (r = 0; r < minfo->nbrow; r++)
-        mat_set_row(&mat, r, &gjmat[r], minfo);
-    for (r = 0; r < minfo->nbrow; r++)
-        free(gjmat[r]);
-    free(gjmat);
+    gj_echelonize(&mat, minfo);
 #ifdef POLY_DEBUG
     mat_print(&mat, minfo);
     printf("\n");
 #endif
-    solution_print(&mat, minfo, gjmatColSize);
+    solution_print(&mat, minfo);
     free(minfo);
     free(mat);
     return 0;

@@ -34,11 +34,12 @@ static char *solution_get_fmt(unsigned c)
     }
 }
 
-void solution_print(gj_vector *mat, minfo_t *minfo, size_t gjmatColSize)
+void solution_print(gj_vector *mat, minfo_t *minfo)
 {
     gj_vector sol;
     unsigned c;
-    sol = malloc(gjmatColSize);
+    const size_t sol_size= sizeof(double) * minfo->nbcol;
+    sol = malloc(sol_size);
     mat_get_col(mat, minfo, minfo->nbcol - 1, &sol);
     char str[SOL_MAXLEN];
     for (c = 0; c < minfo->nbcol - 1; c++)

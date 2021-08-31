@@ -33,6 +33,19 @@ void mat_set_row(gj_vector *mat, int row, gj_vector *vect, minfo_t *minfo)
     memcpy(*mat + mat_storage(row, 0, minfo), *vect, sizeof(double) * minfo->nbcol);
 }
 
+void mat_swap_row(gj_vector *mat, int i, int k, minfo_t *minfo)
+{
+    gj_vector ritmp, rktmp;
+    ritmp = malloc(sizeof(double) * minfo->nbcol);
+    rktmp = malloc(sizeof(double) * minfo->nbcol);
+    mat_get_row(mat, minfo, i, &ritmp);
+    mat_get_row(mat, minfo, k, &ritmp);
+    mat_set_row(mat, k, &ritmp, minfo);
+    mat_set_row(mat, i, &rktmp, minfo);
+    free(ritmp);
+    free(rktmp);
+}
+
 void mat_set_col(gj_vector *mat, int col, gj_vector *vect, minfo_t *minfo, unsigned offset)
 {
     unsigned rows;
