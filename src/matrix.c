@@ -36,10 +36,11 @@ void mat_set_row(gj_vector *mat, int row, gj_vector *vect, minfo_t *minfo)
 void mat_swap_row(gj_vector *mat, int i, int k, minfo_t *minfo)
 {
     gj_vector ritmp, rktmp;
-    ritmp = malloc(sizeof(double) * minfo->nbcol);
-    rktmp = malloc(sizeof(double) * minfo->nbcol);
+    const size_t asize = sizeof(double) * minfo->nbcol;
+    ritmp = malloc(asize);
+    rktmp = malloc(asize);
     mat_get_row(mat, minfo, i, &ritmp);
-    mat_get_row(mat, minfo, k, &ritmp);
+    mat_get_row(mat, minfo, k, &rktmp);
     mat_set_row(mat, k, &ritmp, minfo);
     mat_set_row(mat, i, &rktmp, minfo);
     free(ritmp);

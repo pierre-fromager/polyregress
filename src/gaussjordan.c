@@ -1,12 +1,7 @@
 
 #include "gaussjordan.h"
 
-static void gj_swap(gj_vector *mat, unsigned i, unsigned k, minfo_t *minfo)
-{
-    mat_swap_row(mat, i, k, minfo);
-}
-
-static void gj_divide(gj_vector *mat, unsigned i, unsigned j, minfo_t *minfo)
+static void divide(gj_vector *mat, unsigned i, unsigned j, minfo_t *minfo)
 {
     unsigned q;
     for (q = j + 1; q < minfo->nbcol; q++)
@@ -17,7 +12,7 @@ static void gj_divide(gj_vector *mat, unsigned i, unsigned j, minfo_t *minfo)
     mat_set_value(mat, i, j, minfo, 1);
 }
 
-static void gj_eliminate(gj_vector *mat, unsigned i, unsigned j, minfo_t *minfo)
+static void eliminate(gj_vector *mat, unsigned i, unsigned j, minfo_t *minfo)
 {
     unsigned k, q;
     for (k = 0; k < minfo->nbrow; k++)
@@ -44,12 +39,10 @@ void gj_echelonize(gj_vector *mat, minfo_t *minfo)
         if (k < minfo->nbrow)
         {
             if (k != i)
-                gj_swap(mat, i, k, minfo);
-
+                mat_swap_row(mat, i, k, minfo);
             if (mat_get_value(mat, i, j, minfo) != 1)
-                gj_divide(mat, i, j, minfo);
-
-            gj_eliminate(mat, i, j, minfo);
+                divide(mat, i, j, minfo);
+            eliminate(mat, i, j, minfo);
             i += 1;
         }
         j += 1;
