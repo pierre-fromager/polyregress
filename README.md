@@ -63,3 +63,4 @@ Wip.
 ## Links
 
 * [c++ polyreg](https://gogs.pier-infor.fr/pf.pier-infor.fr/polyreg) to reuse result and play with the gnuplot renderer.
+* [Array Pointer](https://www.geeksforgeeks.org/pointer-array-array-pointer/) to understand how to use a 2D matrix with a 1D array and pointers.
