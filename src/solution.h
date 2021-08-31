@@ -21,7 +21,7 @@
 #define SOL_STR_PLUS '+'
 #define SOL_STR_SPACE ' '
 #define SOL_MAXLEN 2048
-#define SOL_ACCURACY_FMT "16"
+#define SOL_ACCURACY_FMT "14"
 #define SOL_FMT_0 "y=%0." SOL_ACCURACY_FMT "lf"
 #define SOL_FMT_FAC_PFX "%c %0."
 #define SOL_FMT_1 SOL_FMT_FAC_PFX SOL_ACCURACY_FMT "lf*x"

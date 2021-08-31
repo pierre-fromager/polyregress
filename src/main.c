@@ -21,7 +21,7 @@
 #include "matcalc.h"
 #include "solution.h"
 
-// #define POLY_DEBUG
+//#define POLY_DEBUG
 #define MSG_USG_0 "Usage degree x0 y0 x1 y1 .. xn yn:\n"
 #define MSG_USG_1 "echo \"4 1 0 2 2 3 1 4 4 5 2\" | %s - \n"
 #define DSIZE 10
@@ -36,33 +36,29 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
     gj_vector raw_data;
-    unsigned datacpt = 0;
-    unsigned degree = 0;
+    unsigned datacpt, degree = 0;
     raw_data = malloc(sizeof(double) * RAW_ARR_SIZE);
     populate_data(&raw_data, &datacpt, &degree);
     populate_check(datacpt, degree);
     const unsigned nbPoints = datacpt / 2;
-    const size_t psize = sizeof(point_t) * nbPoints;
-    const size_t mpcSize = sizeof(double) * datacpt;
-    const size_t minfoSize = sizeof(minfo_t);
     minfo_t *minfo;
-    minfo = malloc(minfoSize);
+    minfo = malloc(sizeof(minfo_t));
     minfo->degree = degree;
     minfo->nbcol = minfo->degree + 2;
     minfo->nbrow = minfo->degree + 1;
     minfo->nbpoints = nbPoints;
-    const size_t msize = (minfo->nbcol * minfo->nbrow) * sizeof(double);
     unsigned c;
     points_t points;
     gj_vector mpc;
     gj_vector mat;
 
-    points = malloc(psize);
-    mpc = malloc(mpcSize);
-    mat = malloc(msize);
+    points = malloc(sizeof(point_t) * nbPoints);
+    mpc = malloc(sizeof(double) * datacpt);
+    mat = malloc((minfo->nbcol * minfo->nbrow) * sizeof(double));
 
     points_init(&raw_data, &points, datacpt);
     free(raw_data);
+
     matcalc_mpc(&mpc, &points, minfo);
     mat_init(&mat, minfo, 0.0);
 #ifdef POLY_DEBUG
@@ -72,8 +68,10 @@ int main(int argc, char *argv[])
     for (c = 0; c < minfo->nbrow; ++c)
         mat_set_col(&mat, c, &mpc, minfo, c);
     free(mpc);
+
     matcalc_rhs(&mat, &points, minfo);
     free(points);
+
 #ifdef POLY_DEBUG
     mat_print(&mat, minfo);
 #endif
@@ -83,6 +81,7 @@ int main(int argc, char *argv[])
     printf("\n");
 #endif
     solution_print(&mat, minfo);
+
     free(minfo);
     free(mat);
     return 0;

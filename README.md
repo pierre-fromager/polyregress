@@ -52,7 +52,7 @@ Here we are dealing with double type.
 You can change the solution accuracy from the solution.h file.  
 
 ``` 
-#define SOL_ACCURACY_FMT "16"
+#define SOL_ACCURACY_FMT "14"
 ``` 
 
 ## Limitations
