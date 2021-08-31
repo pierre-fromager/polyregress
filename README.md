@@ -37,6 +37,15 @@ echo "4 1 0 2 2 3 1 4 4 5 2" | ./polyregress -
 
 It performs x20 faster than the intial script.
 
+## Accuracy
+
+Here we are dealing with double type.  
+You can change the solution accuracy from the solution.h file.  
+
+``` 
+#define SOL_ACCURACY_FMT "16"
+``` 
+
 ## Limitations
 
 Input buffer is limited to 2048 bytes but you can change it in main.
