@@ -35,7 +35,7 @@ echo "4 1 0 2 2 3 1 4 4 5 2" | ./polyregress -
 
 ## Performance
 
-It performs x20 faster than the intial script.
+It performs x20 faster than the initial script.
 
 ## Accuracy
 
