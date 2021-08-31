@@ -1,9 +1,9 @@
 
 #include "points.h"
 
-void points_init(gj_vector *data, points_t *points, int nbPoints)
+void points_init(gj_vector *data, points_t *points, unsigned nbPoints)
 {
-    int c;
+    unsigned c;
     for (c = 0; c < nbPoints; c++)
     {
         const int i = (int)c / 2;

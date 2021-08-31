@@ -15,17 +15,14 @@
 
 #include "matrix.h"
 
-typedef union point_s {
-    double point[2];
-    struct
-    {
-        double x;
-        double y;
-    };
+typedef struct point_s
+{
+    double x;
+    double y;
 } point_t;
 
 typedef point_t *points_t;
 
-void points_init(gj_vector *data, points_t *points, int nbPoints);
+void points_init(gj_vector *data, points_t *points, unsigned nbPoints);
 
 #endif // _POLYREG_POINTS_

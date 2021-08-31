@@ -6,39 +6,39 @@ static size_t mat_row_asize(minfo_t *minfo)
     return sizeof(double) * minfo->nbcol;
 }
 
-static unsigned mat_storage(int row, int col, minfo_t *minfo)
+static unsigned mat_storage(unsigned row, unsigned col, minfo_t *minfo)
 {
     return (row * minfo->nbcol) + col;
 }
 
-void mat_set_value(gj_vector *mat, int row, int col, minfo_t *minfo, double value)
+void mat_set_value(gj_vector *mat, unsigned row, unsigned col, minfo_t *minfo, double value)
 {
     *(*mat + mat_storage(row, col, minfo)) = value;
 }
 
-double mat_get_value(gj_vector *mat, int row, int col, minfo_t *minfo)
+double mat_get_value(gj_vector *mat, unsigned row, unsigned col, minfo_t *minfo)
 {
     return *(*mat + mat_storage(row, col, minfo));
 }
 
-void mat_get_row(gj_vector *mat, minfo_t *minfo, int row, gj_vector *rowvect)
+void mat_get_row(gj_vector *mat, minfo_t *minfo, unsigned row, gj_vector *rowvect)
 {
     memcpy(*rowvect, *mat + mat_storage(row, 0, minfo), mat_row_asize(minfo));
 }
 
-void mat_get_col(gj_vector *mat, minfo_t *minfo, int col, gj_vector *colvect)
+void mat_get_col(gj_vector *mat, minfo_t *minfo, unsigned col, gj_vector *colvect)
 {
     unsigned rows;
     for (rows = 0; rows < minfo->nbrow; rows++)
         (*colvect)[rows] = mat_get_value(mat, rows, col, minfo);
 }
 
-void mat_set_row(gj_vector *mat, int row, gj_vector *vect, minfo_t *minfo)
+void mat_set_row(gj_vector *mat, unsigned row, gj_vector *vect, minfo_t *minfo)
 {
     memcpy(*mat + mat_storage(row, 0, minfo), *vect, mat_row_asize(minfo));
 }
 
-void mat_swap_row(gj_vector *mat, int i, int k, minfo_t *minfo)
+void mat_swap_row(gj_vector *mat, unsigned i, unsigned k, minfo_t *minfo)
 {
     gj_vector ritmp, rktmp;
     const size_t asize = mat_row_asize(minfo);
@@ -52,7 +52,7 @@ void mat_swap_row(gj_vector *mat, int i, int k, minfo_t *minfo)
     free(rktmp);
 }
 
-void mat_set_col(gj_vector *mat, int col, gj_vector *vect, minfo_t *minfo, unsigned offset)
+void mat_set_col(gj_vector *mat, unsigned col, gj_vector *vect, minfo_t *minfo, unsigned offset)
 {
     unsigned rows;
     for (rows = 0; rows < minfo->nbrow; rows++)

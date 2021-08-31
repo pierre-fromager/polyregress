@@ -1,6 +1,18 @@
 CXX = gcc
 CC = $(CXX)
-CFLAGS = -Wall -Wextra -std=c99 -lm -g -O2
+CFLAGS = -Werror -Wall -Wextra -Wpedantic -std=c99 -lm -g \
+	-Wformat=2 -Wformat-security -Wno-format-nonliteral \
+	-Wnull-dereference -Wstack-protector -Wtrampolines -Wvla \
+	-Warray-bounds=2 \
+	-Wtraditional-conversion -Wshift-overflow=2 -Wcast-qual \
+	-Wconversion -Wlogical-op -Wduplicated-cond \
+	-Wformat-signedness -Wshadow -Wstrict-overflow=4 \
+	-Wundef -Wstrict-prototypes -Wswitch-default -Wswitch-enum \
+	-Wstack-usage=1000000 \
+	-D_FORTIFY_SOURCE=2 \
+	-fstack-protector-strong -fPIE \
+	-fsanitize=address -fsanitize=leak -fno-omit-frame-pointer -fsanitize=undefined \
+	-fsanitize=bounds-strict -fsanitize=float-divide-by-zero -fsanitize=float-cast-overflow
 
 SRC_FILES = $(wildcard src/*.c) $(wildcard src/**/*.c)
 TST_FILES = $(wildcard test/*.c) $(wildcard test/**/*.c) $(wildcard test/**/**/*.c)

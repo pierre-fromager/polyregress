@@ -9,7 +9,7 @@ static void divide(gj_vector *mat, unsigned i, unsigned j, minfo_t *minfo)
         const double v = mat_get_value(mat, i, q, minfo) / mat_get_value(mat, i, j, minfo);
         mat_set_value(mat, i, q, minfo, v);
     }
-    mat_set_value(mat, i, j, minfo, 1);
+    mat_set_value(mat, i, j, minfo, 1.0);
 }
 
 static void eliminate(gj_vector *mat, unsigned i, unsigned j, minfo_t *minfo)
@@ -23,7 +23,7 @@ static void eliminate(gj_vector *mat, unsigned i, unsigned j, minfo_t *minfo)
                 const double v = mat_get_value(mat, k, q, minfo) - mat_get_value(mat, k, j, minfo) * mat_get_value(mat, i, q, minfo);
                 mat_set_value(mat, k, q, minfo, v);
             }
-            mat_set_value(mat, k, j, minfo, 0);
+            mat_set_value(mat, k, j, minfo, 0.0);
         }
 }
 

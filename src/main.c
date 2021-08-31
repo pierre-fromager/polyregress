@@ -36,12 +36,12 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
     gj_vector raw_data;
-    int datacpt = -1;
-    int degree = 0;
+    unsigned datacpt = 0;
+    unsigned degree = 0;
     raw_data = malloc(sizeof(double) * RAW_ARR_SIZE);
     populate_data(&raw_data, &datacpt, &degree);
     populate_check(datacpt, degree);
-    const int nbPoints = datacpt / 2;
+    const unsigned nbPoints = datacpt / 2;
     const size_t psize = sizeof(point_t) * nbPoints;
     const size_t mpcSize = sizeof(double) * datacpt;
     const size_t minfoSize = sizeof(minfo_t);
@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
     points_init(&raw_data, &points, datacpt);
     free(raw_data);
     matcalc_mpc(&mpc, &points, minfo);
-    mat_init(&mat, minfo, 0);
+    mat_init(&mat, minfo, 0.0);
 #ifdef POLY_DEBUG
     mat_print(&mat, minfo);
 #endif

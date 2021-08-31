@@ -30,13 +30,13 @@ struct minfo_s
 typedef struct minfo_s minfo_t;
 typedef double *gj_vector;
 
-void mat_set_value(gj_vector *mat, int row, int col, minfo_t *minfo, double value);
-double mat_get_value(gj_vector *mat, int row, int col, minfo_t *minfo);
-void mat_get_row(gj_vector *mat, minfo_t *minfo, int row, gj_vector *rowvect);
-void mat_get_col(gj_vector *mat, minfo_t *minfo, int col, gj_vector *colvect);
-void mat_set_row(gj_vector *mat, int row, gj_vector *vect, minfo_t *minfo);
-void mat_swap_row(gj_vector *mat, int i, int k, minfo_t *minfo);
-void mat_set_col(gj_vector *mat, int col, gj_vector *vect, minfo_t *minfo, unsigned offset);
+void mat_set_value(gj_vector *mat, unsigned row, unsigned col, minfo_t *minfo, double value);
+double mat_get_value(gj_vector *mat, unsigned row, unsigned col, minfo_t *minfo);
+void mat_get_row(gj_vector *mat, minfo_t *minfo, unsigned row, gj_vector *rowvect);
+void mat_get_col(gj_vector *mat, minfo_t *minfo, unsigned col, gj_vector *colvect);
+void mat_set_row(gj_vector *mat, unsigned row, gj_vector *vect, minfo_t *minfo);
+void mat_swap_row(gj_vector *mat, unsigned i, unsigned k, minfo_t *minfo);
+void mat_set_col(gj_vector *mat, unsigned col, gj_vector *vect, minfo_t *minfo, unsigned offset);
 void mat_print(gj_vector *mat, minfo_t *minfo);
 void mat_fill_vect(gj_vector vect, unsigned size, double value);
 void mat_print_vect(gj_vector vect, unsigned size);

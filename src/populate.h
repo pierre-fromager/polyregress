@@ -14,13 +14,13 @@
 #define _POLYREG_POPULATE_
 
 #define MSG_ERR_POINTS "Error: data not in form of x,y pairs.\n"
-#define MSG_ERR_DEGREE "Warning: polynomial degree %d > nb points %d.\n"
+#define MSG_ERR_DEGREE "Warning: polynomial degree %x > nb points %x.\n"
 #define DELIM " "
 #define LINE_BUF_SIZE 128
 
 #include "matrix.h"
 
-void populate_data(gj_vector *rawArray, int *datacpt, int *degree);
-void populate_check(int datacpt, int degree);
+void populate_data(gj_vector *rawArray, unsigned *datacpt, unsigned *degree);
+void populate_check(unsigned datacpt, unsigned degree);
 
 #endif // _POLYREG_POPULATE_
