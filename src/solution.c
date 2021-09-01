@@ -34,13 +34,19 @@ static char *solution_get_fmt(unsigned c)
     }
 }
 
-void solution_print(gj_vector *mat, minfo_t *minfo)
+gj_vector solution_get(gj_vector *mat, minfo_t *minfo)
 {
     gj_vector sol;
-    unsigned c;
     const size_t sol_asize = sizeof(double) * minfo->nbcol;
     sol = malloc(sol_asize);
     mat_get_col(mat, minfo, minfo->nbcol - 1, &sol);
+    return sol;
+}
+
+void solution_print(gj_vector *mat, minfo_t *minfo)
+{
+    gj_vector sol = solution_get(mat, minfo);
+    unsigned c;
     char str[SOL_MAXLEN];
     for (c = 0; c < minfo->nbcol - 1; c++)
         if (c == 0)

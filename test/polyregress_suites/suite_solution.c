@@ -1,13 +1,25 @@
 
 #include "suite_solution.h"
 
+gj_vector mat;
+gj_vector sol;
+minfo_t *minfo;
+
 static int setup(void)
 {
+    minfo = malloc(sizeof(minfo_t));
+    minfo->degree = 4;
+    minfo->nbcol = minfo->degree + 2;
+    minfo->nbrow = minfo->degree + 1;
+    mat = malloc((minfo->nbcol * minfo->nbrow) * sizeof(double));
     return 0;
 }
 
 static int teardown(void)
 {
+    free(sol);
+    free(minfo);
+    free(mat);
     return 0;
 }
 
@@ -16,7 +28,7 @@ static struct
     void (*function)(void);
     char *name;
 } test_functions[] = {
-    {test_polyregress_solution_solution_print, "solution_print"},
+    {test_polyregress_solution_solution_get, "solution_get"},
     {0, 0},
 };
 
@@ -45,6 +57,17 @@ void test_polyregress_solution_add_suite()
     }
 }
 
-void test_polyregress_solution_solution_print()
+void test_polyregress_solution_solution_get()
 {
+    unsigned c;
+    CU_ASSERT_PTR_NOT_NULL_FATAL(mat);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(minfo);
+    mat_init(&mat, minfo, 0.0);
+    sol = solution_get(&mat, minfo);
+    for (c = 0; c < minfo->nbrow; c++)
+        CU_ASSERT_EQUAL(sol[c], 0.0);
+    mat_init(&mat, minfo, 10.0);
+    sol = solution_get(&mat, minfo);
+    for (c = 0; c < minfo->nbrow; c++)
+        CU_ASSERT_EQUAL(sol[c], 10.0);
 }
