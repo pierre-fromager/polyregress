@@ -1,7 +1,7 @@
 CXX = gcc
 CC = $(CXX)
 CFLAGS = -O2 -Werror -Wall -Wextra -Wpedantic -std=c99 -lm \
-	-s -g \
+	-s -g -fno-asm \
 	-Wno-format-nonliteral \
 	-Wformat=2 -Wformat-security \
 	-Wnull-dereference -Wstack-protector -Wtrampolines -Wvla \
@@ -10,12 +10,12 @@ CFLAGS = -O2 -Werror -Wall -Wextra -Wpedantic -std=c99 -lm \
 	-Wconversion -Wlogical-op -Wduplicated-cond \
 	-Wformat-signedness -Wshadow -Wstrict-overflow=4 \
 	-Wundef -Wstrict-prototypes -Wswitch-default -Wswitch-enum \
-	-Wstack-usage=1000000 #\
-	-fno-asm \
-	-D_FORTIFY_SOURCE=2 \
-	-fstack-protector-strong -fPIE \
-	-fsanitize=address -fsanitize=leak -fno-omit-frame-pointer -fsanitize=undefined \
-	-fsanitize=bounds-strict -fsanitize=float-divide-by-zero -fsanitize=float-cast-overflow
+	-Wstack-usage=1000000 \
+	-D_FORTIFY_SOURCE=2 #\
+	-fstack-protector-strong -fPIE -fsanitize=address \
+	-fsanitize=leak -fno-omit-frame-pointer -fsanitize=undefined \
+	-fsanitize=bounds-strict -fsanitize=float-divide-by-zero \
+	-fsanitize=float-cast-overflow
 
 SRC_FILES = $(wildcard src/*.c) $(wildcard src/**/*.c)
 TST_FILES = $(wildcard test/*.c) $(wildcard test/**/*.c) $(wildcard test/**/**/*.c)

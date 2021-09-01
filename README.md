@@ -42,7 +42,7 @@ Default setup is designed for x20.
 time echo "4 1 0 2 2 3 1 4 4 5 2" | ./polyregress -
 ```
 
-Removing the **#** line 13 in Makefile, will enforce security adding sanitizers but downperf to x3.  
+Removing the # line 14 in Makefile, will enforce security adding sanitizers but downperf to x3.  
 
 Read [Security-related flags and options for C compilers](https://airbus-seclab.github.io/c-compiler-security/) to know more.
 
