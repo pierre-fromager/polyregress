@@ -1,7 +1,7 @@
 CXX = gcc
 CC = $(CXX)
 CFLAGS = -O2 -Werror -Wall -Wextra -Wpedantic -std=c99 -lm \
-	-v -s -g \
+	-s -g \
 	-Wno-format-nonliteral \
 	-Wformat=2 -Wformat-security \
 	-Wnull-dereference -Wstack-protector -Wtrampolines -Wvla \

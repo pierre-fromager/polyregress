@@ -21,7 +21,7 @@
 #include "matcalc.h"
 #include "solution.h"
 
-//#define POLY_DEBUG
+#define POLY_DEBUG
 #define MSG_USG_0 "Usage degree x0 y0 x1 y1 .. xn yn:\n"
 #define MSG_USG_1 "echo \"4 1 0 2 2 3 1 4 4 5 2\" | %s - \n"
 #define DSIZE 10

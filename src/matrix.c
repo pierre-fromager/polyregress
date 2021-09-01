@@ -30,7 +30,7 @@ void mat_get_col(gj_vector *mat, minfo_t *minfo, unsigned col, gj_vector *colvec
 {
     unsigned rows;
     for (rows = 0; rows < minfo->nbrow; rows++)
-        (*colvect)[rows] = mat_get_value(mat, rows, col, minfo);
+        *(*colvect + rows) = mat_get_value(mat, rows, col, minfo);
 }
 
 void mat_set_row(gj_vector *mat, unsigned row, gj_vector *vect, minfo_t *minfo)
@@ -56,7 +56,7 @@ void mat_set_col(gj_vector *mat, unsigned col, gj_vector *vect, minfo_t *minfo, 
 {
     unsigned rows;
     for (rows = 0; rows < minfo->nbrow; rows++)
-        mat_set_value(mat, rows, col, minfo, (*vect)[rows + offset]);
+        mat_set_value(mat, rows, col, minfo, *(*vect + rows + offset));
 }
 
 void mat_print(gj_vector *mat, minfo_t *minfo)
@@ -64,27 +64,27 @@ void mat_print(gj_vector *mat, minfo_t *minfo)
     unsigned rows;
     gj_vector rv;
     printf("\n");
-    rv = malloc(sizeof(double) * minfo->nbcol);
+    rv = malloc(mat_row_asize(minfo));
     for (rows = 0; rows < minfo->nbrow; rows++)
     {
         mat_get_row(mat, minfo, rows, &rv);
-        mat_print_vect(rv, minfo->nbcol);
+        mat_print_vect(&rv, minfo->nbcol);
     }
     free(rv);
 }
 
-void mat_fill_vect(gj_vector vect, unsigned size, double value)
+void mat_fill_vect(gj_vector *vect, unsigned size, double value)
 {
     unsigned i;
     for (i = 0; i < size; i++)
-        *(vect + i) = value;
+        *(*vect + i) = value;
 }
 
-void mat_print_vect(gj_vector vect, unsigned size)
+void mat_print_vect(gj_vector *vect, unsigned size)
 {
     unsigned i;
     for (i = 0; i < size; i++)
-        printf("%7.5lf \t", vect[i]);
+        printf("%7.5lf \t", *(*vect + i));
     printf("\n");
 }
 
@@ -92,8 +92,8 @@ void mat_init(gj_vector *mat, minfo_t *minfo, double value)
 {
     unsigned i;
     gj_vector rowvect;
-    rowvect = malloc(sizeof(double) * minfo->nbcol);
-    mat_fill_vect(rowvect, minfo->nbcol, value);
+    rowvect = malloc(mat_row_asize(minfo));
+    mat_fill_vect(&rowvect, minfo->nbcol, value);
     for (i = 0; i < minfo->nbrow; i++)
         mat_set_row(mat, i, &rowvect, minfo);
     free(rowvect);
