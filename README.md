@@ -61,7 +61,16 @@ Input buffer is limited to 2048 bytes but you can change it in main.
 
 ## Tests
 
-Wip.
+to build CUNIT tests
+
+``` 
+make
+make test
+```
+to run tests with or without options (bcChi)
+``` 
+./polyregress_test <options>
+```
 
 ## Todo
 
