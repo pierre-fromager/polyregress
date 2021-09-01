@@ -9,6 +9,7 @@
 #include "../../src/matcalc.h"
 
 void test_polyregress_matcalc_add_suite(void);
+
 void test_polyregress_matcalc_matcalc_mpc(void);
 void test_polyregress_matcalc_matcalc_rhs(void);
 

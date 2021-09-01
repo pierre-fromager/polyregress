@@ -9,6 +9,7 @@
 #include "polyregress_suites/suite_gaussjordan.h"
 #include "polyregress_suites/suite_points.h"
 #include "polyregress_suites/suite_matcalc.h"
+#include "polyregress_suites/suite_matrix.h"
 
 int main(int argc, char *argv[])
 {
@@ -103,6 +104,7 @@ int main(int argc, char *argv[])
 	test_polyregress_gaussjordan_add_suite();
 	test_polyregress_points_add_suite();
 	test_polyregress_matcalc_add_suite();
+	test_polyregress_matrix_add_suite();
 
 	switch (interface)
 	{

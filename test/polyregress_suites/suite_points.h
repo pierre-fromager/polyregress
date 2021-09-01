@@ -9,6 +9,7 @@
 #include "../../src/points.h"
 
 void test_polyregress_points_add_suite(void);
+
 void test_polyregress_points_points_init(void);
 
 #endif
