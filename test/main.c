@@ -11,6 +11,7 @@
 #include "polyregress_suites/suite_matcalc.h"
 #include "polyregress_suites/suite_matrix.h"
 #include "polyregress_suites/suite_solution.h"
+#include "polyregress_suites/suite_populate.h"
 
 int main(int argc, char *argv[])
 {
@@ -107,6 +108,7 @@ int main(int argc, char *argv[])
 	test_polyregress_matcalc_add_suite();
 	test_polyregress_matrix_add_suite();
 	test_polyregress_solution_add_suite();
+	test_polyregress_populate_add_suite();
 
 	switch (interface)
 	{
