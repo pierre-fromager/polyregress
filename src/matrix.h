@@ -30,6 +30,7 @@ struct minfo_s
 typedef struct minfo_s minfo_t;
 typedef double *gj_vector;
 
+unsigned mat_storage(unsigned row, unsigned col, minfo_t *minfo);
 void mat_set_value(gj_vector *mat, unsigned row, unsigned col, minfo_t *minfo, double value);
 double mat_get_value(gj_vector *mat, unsigned row, unsigned col, minfo_t *minfo);
 void mat_get_row(gj_vector *mat, minfo_t *minfo, unsigned row, gj_vector *rowvect);

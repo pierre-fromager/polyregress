@@ -6,7 +6,7 @@ static size_t mat_row_asize(minfo_t *minfo)
     return sizeof(double) * minfo->nbcol;
 }
 
-static unsigned mat_storage(unsigned row, unsigned col, minfo_t *minfo)
+unsigned mat_storage(unsigned row, unsigned col, minfo_t *minfo)
 {
     return (row * minfo->nbcol) + col;
 }
