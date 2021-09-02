@@ -3,6 +3,7 @@
 
 gj_vector mat;
 gj_vector sol;
+char solstr[SOL_MAXLEN];
 minfo_t *minfo;
 
 static int setup(void)
@@ -29,6 +30,7 @@ static struct
     char *name;
 } test_functions[] = {
     {test_polyregress_solution_solution_get, "solution_get"},
+    {test_polyregress_solution_solution_get_str, "solution_get_str"},
     {0, 0},
 };
 
@@ -70,4 +72,16 @@ void test_polyregress_solution_solution_get()
     sol = solution_get(&mat, minfo);
     for (c = 0; c < minfo->nbrow; c++)
         CU_ASSERT_EQUAL(sol[c], 10.0);
+}
+
+void test_polyregress_solution_solution_get_str()
+{
+    CU_ASSERT_PTR_NOT_NULL_FATAL(mat);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(minfo);
+    mat_init(&mat, minfo, 0.0);
+    sol = solution_get(&mat, minfo);
+    solution_get_str(sol, minfo, solstr);
+    CU_ASSERT_STRING_NOT_EQUAL(solstr, " ");
+    const char *exptectedstr = "y=0.00000000000000+0.00000000000000*x+0.00000000000000*x^2+0.00000000000000*x^3+0.00000000000000*x^4";
+    CU_ASSERT_STRING_EQUAL(solstr, exptectedstr);
 }

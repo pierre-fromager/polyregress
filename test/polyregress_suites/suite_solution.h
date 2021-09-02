@@ -11,5 +11,6 @@
 void test_polyregress_solution_add_suite(void);
 
 void test_polyregress_solution_solution_get(void);
+void test_polyregress_solution_solution_get_str(void);
 
 #endif

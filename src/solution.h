@@ -28,6 +28,7 @@
 #define SOL_FMT_N SOL_FMT_FAC_PFX SOL_ACCURACY_FMT "lf*x^%d"
 
 gj_vector solution_get(gj_vector *mat, minfo_t *minfo);
+void solution_get_str(gj_vector sol, minfo_t *minfo, char *str);
 void solution_print(gj_vector *mat, minfo_t *minfo);
 
 #endif // _POLYREG_SOL_

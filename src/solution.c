@@ -37,34 +37,30 @@ static char *solution_get_fmt(unsigned c)
 gj_vector solution_get(gj_vector *mat, minfo_t *minfo)
 {
     gj_vector sol;
-    const size_t sol_asize = sizeof(double) * minfo->nbcol;
-    sol = malloc(sol_asize);
+    sol = malloc(sizeof(double) * minfo->nbcol);
     mat_get_col(mat, minfo, minfo->nbcol - 1, &sol);
     return sol;
+}
+
+void solution_get_str(gj_vector sol, minfo_t *minfo, char *str)
+{
+    unsigned c = 0;
+    snprintf(str, (size_t)SOL_MAXLEN, solution_get_fmt(c), sol[c]);
+    for (c = 1; c < minfo->nbcol - 1; c++)
+        snprintf(str + strlen(str),
+                 (size_t)SOL_MAXLEN,
+                 solution_get_fmt(c),
+                 solution_get_sign(sol[c]),
+                 sol[c],
+                 c);
+    solution_remove_space(str);
 }
 
 void solution_print(gj_vector *mat, minfo_t *minfo)
 {
     gj_vector sol = solution_get(mat, minfo);
-    unsigned c;
     char str[SOL_MAXLEN];
-    for (c = 0; c < minfo->nbcol - 1; c++)
-        if (c == 0)
-            snprintf(
-                str,
-                (size_t)SOL_MAXLEN,
-                solution_get_fmt(c),
-                sol[c]);
-        else
-        {
-            snprintf(
-                str + strlen(str),
-                (size_t)SOL_MAXLEN,
-                solution_get_fmt(c),
-                solution_get_sign(sol[c]),
-                sol[c],
-                c);
-        }
+    solution_get_str(sol, minfo, str);
     solution_remove_space(str);
     printf("%s\n", str);
     free(sol);
