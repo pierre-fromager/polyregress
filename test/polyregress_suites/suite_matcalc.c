@@ -6,9 +6,11 @@ gj_vector col;
 gj_vector row;
 minfo_t *minfo;
 point_t *points;
+gj_vector mpc;
 
 const double points_x[SUITE_MATCAL_NB_POINTS] = {1, 2, 3, 4, 5};
 const double points_y[SUITE_MATCAL_NB_POINTS] = {0, 2, 1, 4, 2};
+const double expected_mpc[SUITE_MATCAL_NB_POINTS] = {5.0, 15.0, 55.0, 225.0, 979.0};
 
 static int setup(void)
 {
@@ -16,10 +18,18 @@ static int setup(void)
     minfo->degree = 4;
     minfo->nbcol = minfo->degree + 2;
     minfo->nbrow = minfo->degree + 1;
+    minfo->nbpoints = SUITE_MATCAL_NB_POINTS;
     mat = malloc((minfo->nbcol * minfo->nbrow) * sizeof(double));
     col = malloc(minfo->nbrow * sizeof(double));
     row = malloc(minfo->nbcol * sizeof(double));
     points = malloc(SUITE_MATCAL_NB_POINTS * sizeof(point_t));
+    mpc = malloc(SUITE_MATCAL_NB_POINTS * 2 * sizeof(double));
+    unsigned ipoints;
+    for (ipoints = 0; ipoints < SUITE_MATCAL_NB_POINTS; ipoints++)
+    {
+        points[ipoints].x = points_x[ipoints];
+        points[ipoints].y = points_y[ipoints];
+    }
     return 0;
 }
 
@@ -30,6 +40,7 @@ static int teardown(void)
     free(minfo);
     free(mat);
     free(points);
+    free(mpc);
     return 0;
 }
 
@@ -55,7 +66,6 @@ void test_polyregress_matcalc_add_suite()
         printf(suite_err_fmt, suite_name, CU_get_error_msg());
         _exit(3);
     }
-
     int i;
     for (i = 0; test_functions[i].name; i++)
     {
@@ -70,12 +80,10 @@ void test_polyregress_matcalc_add_suite()
 
 void test_polyregress_matcalc_matcalc_mpc()
 {
-    unsigned ipoints;
-    for (ipoints = 0; ipoints < SUITE_MATCAL_NB_POINTS; ipoints++)
-    {
-        points[ipoints].x = points_x[ipoints];
-        points[ipoints].y = points_y[ipoints];
-    }
+    unsigned irow;
+    matcalc_mpc(&mpc, &points, minfo);
+    for (irow = 0; irow < minfo->nbrow; irow++)
+        CU_ASSERT_EQUAL(*(mpc + irow), expected_mpc[irow]);
 }
 
 void test_polyregress_matcalc_matcalc_rhs()

@@ -5,14 +5,14 @@ void matcalc_mpc(gj_vector *mpc, points_t *points, minfo_t *minfo)
 {
     unsigned cr, cl;
     double s;
-    (*mpc)[0] = minfo->nbpoints;
+    *(*mpc) = minfo->nbpoints;
     const unsigned rs = (2 * minfo->degree) + 1;
     for (cr = 1; cr < rs; cr++)
     {
         s = 0;
         for (cl = 0; cl < minfo->nbpoints; cl++)
             s += pow((*points)[cl].x, (double)cr);
-        (*mpc)[cr] = s;
+        *(*mpc + cr) = s;
     }
 }
 
