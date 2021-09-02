@@ -46,5 +46,11 @@ void test_polyregress_populate_add_suite()
     }
 }
 
-void test_polyregress_populate_populate_data() {}
-void test_polyregress_populate_populate_check() {}
+void test_polyregress_populate_populate_data()
+{
+    CU_PASS("WIP");
+}
+void test_polyregress_populate_populate_check()
+{
+    CU_PASS("WIP");
+}

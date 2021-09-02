@@ -47,4 +47,5 @@ void test_polyregress_gaussjordan_add_suite()
 
 void test_polyregress_gaussjordan_gj_echelonize()
 {
+    CU_PASS("WIP");
 }

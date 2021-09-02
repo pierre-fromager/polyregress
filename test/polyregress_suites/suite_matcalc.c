@@ -1,13 +1,35 @@
 
 #include "suite_matcalc.h"
 
+gj_vector mat;
+gj_vector col;
+gj_vector row;
+minfo_t *minfo;
+point_t *points;
+
+const double points_x[SUITE_MATCAL_NB_POINTS] = {1, 2, 3, 4, 5};
+const double points_y[SUITE_MATCAL_NB_POINTS] = {0, 2, 1, 4, 2};
+
 static int setup(void)
 {
+    minfo = malloc(sizeof(minfo_t));
+    minfo->degree = 4;
+    minfo->nbcol = minfo->degree + 2;
+    minfo->nbrow = minfo->degree + 1;
+    mat = malloc((minfo->nbcol * minfo->nbrow) * sizeof(double));
+    col = malloc(minfo->nbrow * sizeof(double));
+    row = malloc(minfo->nbcol * sizeof(double));
+    points = malloc(SUITE_MATCAL_NB_POINTS * sizeof(point_t));
     return 0;
 }
 
 static int teardown(void)
 {
+    free(col);
+    free(row);
+    free(minfo);
+    free(mat);
+    free(points);
     return 0;
 }
 
@@ -48,8 +70,15 @@ void test_polyregress_matcalc_add_suite()
 
 void test_polyregress_matcalc_matcalc_mpc()
 {
+    unsigned ipoints;
+    for (ipoints = 0; ipoints < SUITE_MATCAL_NB_POINTS; ipoints++)
+    {
+        points[ipoints].x = points_x[ipoints];
+        points[ipoints].y = points_y[ipoints];
+    }
 }
 
 void test_polyregress_matcalc_matcalc_rhs()
 {
+    CU_PASS("WIP");
 }

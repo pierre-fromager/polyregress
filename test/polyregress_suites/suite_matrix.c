@@ -178,19 +178,38 @@ void test_polyregress_matrix_mat_swap_row()
         CU_ASSERT_EQUAL(mat_get_value(&mat, row_number + 1, icol, minfo), expected_val);
 }
 
-void test_polyregress_matrix_mat_set_col() {}
+void test_polyregress_matrix_mat_set_col()
+{
+    CU_ASSERT_PTR_NOT_NULL_FATAL(mat);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(minfo);
+    unsigned irow;
+    const unsigned col_number = 0;
+    const unsigned col_offset = 0;
+    const double expected_val = 1.0;
+    const double initial_val = 0.0;
+    mat_init(&mat, minfo, initial_val);
+    for (irow = 0; irow < minfo->nbrow; irow++)
+        CU_ASSERT_EQUAL(mat_get_value(&mat, irow, col_number, minfo), initial_val);
+    mat_fill_vect(&col, minfo->nbrow, expected_val);
+    mat_set_col(&mat, col_number, &col, minfo, col_offset);
+    for (irow = 0; irow < minfo->nbrow; irow++)
+        CU_ASSERT_EQUAL(mat_get_value(&mat, irow, col_number, minfo), expected_val);
+}
 
 void test_polyregress_matrix_mat_fill_vect()
 {
     gj_vector vect;
-    unsigned vlen = 1024;
+    const unsigned vlen = 1024;
+    const unsigned vlen_half = vlen / 2;
+    const double initial_val = 0.0;
+    const double expected_val = 1.0;
     vect = malloc(sizeof(double) * vlen);
-    mat_fill_vect(&vect, vlen, 0.0);
-    CU_ASSERT_EQUAL(*(vect + 0), 0.0);
-    CU_ASSERT_EQUAL(*(vect + vlen - 1), 0.0);
-    mat_fill_vect(&vect, vlen / 2, 1.0);
-    CU_ASSERT_EQUAL(*(vect + 0), 1.0);
-    CU_ASSERT_EQUAL(*(vect + 512 - 1), 1.0);
+    mat_fill_vect(&vect, vlen, initial_val);
+    CU_ASSERT_EQUAL(*(vect + 0), initial_val);
+    CU_ASSERT_EQUAL(*(vect + vlen - 1), initial_val);
+    mat_fill_vect(&vect, vlen_half, expected_val);
+    CU_ASSERT_EQUAL(*(vect + 0), expected_val);
+    CU_ASSERT_EQUAL(*(vect + vlen_half - 1), expected_val);
     free(vect);
 }
 
@@ -205,5 +224,11 @@ void test_polyregress_matrix_mat_init()
             CU_ASSERT_EQUAL(mat_get_value(&mat, irow, icol, minfo), 3.0);
 }
 
-void test_polyregress_matrix_mat_print_vect() {}
-void test_polyregress_matrix_mat_print() {}
+void test_polyregress_matrix_mat_print_vect()
+{
+    CU_PASS("Skip printf");
+}
+void test_polyregress_matrix_mat_print()
+{
+    CU_PASS("Skip printf");
+}
