@@ -82,6 +82,7 @@ void test_polyregress_matcalc_matcalc_mpc()
 {
     unsigned irow;
     matcalc_mpc(&mpc, &points, minfo);
+    CU_ASSERT_EQUAL(*(mpc), SUITE_MATCAL_NB_POINTS);
     for (irow = 0; irow < minfo->nbrow; irow++)
         CU_ASSERT_EQUAL(*(mpc + irow), expected_mpc[irow]);
 }
