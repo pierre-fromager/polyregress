@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include "../../src/points.h"
 #include "../../src/populate.h"
 
 void test_polyregress_populate_add_suite(void);

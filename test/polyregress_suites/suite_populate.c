@@ -1,8 +1,20 @@
 
 #include "suite_populate.h"
 
+gj_vector datapoints;
+point_t *points;
+unsigned nb_points;
+unsigned degree;
+FILE *handle;
+const char *points_filename = "test/data/points.txt";
+const unsigned expected_degree = 4;
+const unsigned expected_nb_points = 10;
+const double expected_points[] = {1.0, 0.0, 2.0, 2.0, 3.0, 1.0, 4.0, 4.0, 5.0, 2.0};
+
 static int setup(void)
 {
+    nb_points = 0;
+    degree = 0;
     return 0;
 }
 
@@ -48,8 +60,22 @@ void test_polyregress_populate_add_suite()
 
 void test_polyregress_populate_populate_data()
 {
-    CU_PASS("WIP");
+    unsigned pts_cpt;
+    handle = fopen(points_filename, "r");
+    if (handle != NULL)
+    {
+        populate_data(&datapoints, &nb_points, &degree, handle);
+        CU_ASSERT_EQUAL(degree, expected_degree);
+        CU_ASSERT_EQUAL(nb_points, expected_nb_points);
+        for (pts_cpt = 0; pts_cpt < expected_nb_points; pts_cpt++)
+        {
+            CU_ASSERT_EQUAL(*(datapoints + pts_cpt), *(expected_points + pts_cpt));
+        }
+
+        fclose(handle);
+    }
 }
+
 void test_polyregress_populate_populate_check()
 {
     CU_PASS("WIP");
