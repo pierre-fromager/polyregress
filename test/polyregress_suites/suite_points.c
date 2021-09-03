@@ -1,13 +1,28 @@
 
 #include "suite_points.h"
 
+gj_vector datapoints;
+point_t *points;
+unsigned nb_points;
+
+const double suite_points_data[] = {1.0, 0.0, 2.0, 2.0, 3.0, 1.0, 4.0, 4.0, 5.0, 2.0};
+const double exptected_suite_points_x[SUITE_POINTS_NB_POINTS] = {1, 2, 3, 4, 5};
+const double exptected_suite_points_y[SUITE_POINTS_NB_POINTS] = {0, 2, 1, 4, 2};
+
 static int setup(void)
 {
+    nb_points = SUITE_POINTS_NB_POINTS * 2;
+    size_t datapoints_asize = (sizeof(double) * nb_points);
+    datapoints = malloc(datapoints_asize);
+    memcpy(datapoints, &suite_points_data, datapoints_asize);
+    points = malloc(sizeof(point_t) * SUITE_POINTS_NB_POINTS);
     return 0;
 }
 
 static int teardown(void)
 {
+    free(points);
+    free(datapoints);
     return 0;
 }
 
@@ -47,5 +62,11 @@ void test_polyregress_points_add_suite()
 
 void test_polyregress_points_points_init()
 {
-    CU_PASS("WIP");
+    unsigned pts_cpt;
+    points_init(&datapoints, &points, nb_points);
+    for (pts_cpt = 0; pts_cpt < SUITE_POINTS_NB_POINTS; pts_cpt++)
+    {
+        CU_ASSERT_EQUAL(points[pts_cpt].x, exptected_suite_points_x[pts_cpt]);
+        CU_ASSERT_EQUAL(points[pts_cpt].y, exptected_suite_points_y[pts_cpt]);
+    }
 }
