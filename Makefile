@@ -1,5 +1,6 @@
 CXX = gcc
 CC = $(CXX)
+#-ftest-coverage -fprofile-arcs -lgcov 
 CFLAGS = -O2 -Werror -Wall -Wextra -Wpedantic -std=c99 -lm \
 	-s -g -fno-asm \
 	-Wno-format-nonliteral \
@@ -22,6 +23,8 @@ TST_FILES = $(wildcard test/*.c) $(wildcard test/**/*.c) $(wildcard test/**/**/*
 TO_TEST_FILES = $(filter-out src/main.c, $(SRC_FILES))
 
 OBJECTS = $(SRC_FILES:%.c=%.o)
+OBJECTSCOVO = $(SRC_FILES:%.c=%.gcno)
+OBJECTSCOVA = $(SRC_FILES:%.c=%.gcda)
 OBJECTS_TO_TEST = $(TO_TEST_FILES:%.c=%.o)
 OBJECTS_TEST = $(TST_FILES:%.c=%.o)
 TARGET = polyregress
@@ -36,6 +39,8 @@ $(TARGET): $(OBJECTS)
 .PHONY: clean
 clean:
 	rm -rf $(TARGET) $(OBJECTS)
+	rm -rf $(TARGET) $(OBJECTSCOVO)
+	rm -rf $(TARGET) $(OBJECTSCOVA)
 
 .PHONY: trace
 trace:

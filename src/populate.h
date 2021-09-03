@@ -20,7 +20,7 @@
 
 #include "matrix.h"
 
-void populate_data(gj_vector *rawArray, unsigned *datacpt, unsigned *degree);
+void populate_data(gj_vector *rawArray, unsigned *datacpt, unsigned *degree, FILE *stream);
 void populate_check(unsigned datacpt, unsigned degree);
 
 #endif // _POLYREG_POPULATE_

@@ -11,6 +11,7 @@ gj_vector mpc;
 const double points_x[SUITE_MATCAL_NB_POINTS] = {1, 2, 3, 4, 5};
 const double points_y[SUITE_MATCAL_NB_POINTS] = {0, 2, 1, 4, 2};
 const double expected_mpc[SUITE_MATCAL_NB_POINTS] = {5.0, 15.0, 55.0, 225.0, 979.0};
+const double expected_rhs[SUITE_MATCAL_NB_POINTS] = {9.0, 33.0, 131.0, 549.0, 2387.0};
 
 static int setup(void)
 {
@@ -84,10 +85,18 @@ void test_polyregress_matcalc_matcalc_mpc()
     matcalc_mpc(&mpc, &points, minfo);
     CU_ASSERT_EQUAL(*(mpc), SUITE_MATCAL_NB_POINTS);
     for (irow = 0; irow < minfo->nbrow; irow++)
-        CU_ASSERT_EQUAL(*(mpc + irow), expected_mpc[irow]);
+        CU_ASSERT_EQUAL(*(mpc + irow), *(expected_mpc + irow));
 }
 
 void test_polyregress_matcalc_matcalc_rhs()
 {
-    CU_PASS("WIP");
+    CU_ASSERT_PTR_NOT_NULL_FATAL(mat);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(minfo);
+    unsigned irow;
+    const double initial_val = 0.0;
+    mat_init(&mat, minfo, initial_val);
+    matcalc_rhs(&mat, &points, minfo);
+    mat_get_col(&mat, minfo, minfo->nbcol - 1, &col);
+    for (irow = 0; irow < minfo->nbrow; irow++)
+        CU_ASSERT_EQUAL(*(col + irow), *(expected_rhs + irow));
 }

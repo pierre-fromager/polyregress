@@ -1,25 +1,23 @@
 
 #include "populate.h"
 
-void populate_data(gj_vector *rawArray, unsigned *datacpt, unsigned *degree)
+void populate_data(gj_vector *rawArray, unsigned *datacpt, unsigned *degree, FILE *stream)
 {
     uint8_t degree_set = 0;
     char bufin[LINE_BUF_SIZE];
-    while (fgets(bufin, LINE_BUF_SIZE, stdin))
+    while (fgets(bufin, LINE_BUF_SIZE, stream))
     {
         char *value = strtok(bufin, DELIM);
         while (value)
         {
-            if (degree_set == 0) {
+            if (degree_set == 0)
+            {
                 (*degree) = (unsigned)atoi(value);
-                //(*degree) = strtoul(value, &valptr, 10);
                 degree_set = 1;
-                //value = strtok(NULL, DELIM);
-            }                
+            }
             else
                 (*rawArray)[(*datacpt)++] = atof(value);
             value = strtok(NULL, DELIM);
-            //(*datacpt)++;
         }
     }
 }

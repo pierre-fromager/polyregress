@@ -38,21 +38,21 @@ int main(int argc, char *argv[])
     gj_vector raw_data;
     unsigned datacpt, degree = 0;
     raw_data = malloc(sizeof(double) * RAW_ARR_SIZE);
-    populate_data(&raw_data, &datacpt, &degree);
+    populate_data(&raw_data, &datacpt, &degree, stdin);
     populate_check(datacpt, degree);
-    const unsigned nbPoints = datacpt / 2;
+    const unsigned nb_points = datacpt / 2;
     minfo_t *minfo;
     minfo = malloc(sizeof(minfo_t));
     minfo->degree = degree;
     minfo->nbcol = minfo->degree + 2;
     minfo->nbrow = minfo->degree + 1;
-    minfo->nbpoints = nbPoints;
+    minfo->nbpoints = nb_points;
     unsigned c;
     points_t points;
     gj_vector mpc;
     gj_vector mat;
 
-    points = malloc(sizeof(point_t) * nbPoints);
+    points = malloc(sizeof(point_t) * nb_points);
     mpc = malloc(sizeof(double) * datacpt);
     mat = malloc((minfo->nbcol * minfo->nbrow) * sizeof(double));
 
