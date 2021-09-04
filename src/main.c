@@ -62,7 +62,7 @@ int main(int argc, char *argv[])
     matcalc_mpc(&mpc, &points, minfo);
     mat_init(&mat, minfo, 0.0);
 #ifdef POLY_DEBUG
-    mat_print(&mat, minfo);
+    mat_print(&mat, minfo, stdout);
 #endif
     mat_set_row(&mat, 0, &mpc, minfo);
     for (c = 0; c < minfo->nbrow; ++c)
@@ -73,14 +73,14 @@ int main(int argc, char *argv[])
     free(points);
 
 #ifdef POLY_DEBUG
-    mat_print(&mat, minfo);
+    mat_print(&mat, minfo, stdout);
 #endif
     gauss_echelonize(&mat, minfo);
 #ifdef POLY_DEBUG
-    mat_print(&mat, minfo);
+    mat_print(&mat, minfo, stdout);
     printf("\n");
 #endif
-    solution_print(&mat, minfo);
+    solution_print(&mat, minfo, stdout);
 
     free(minfo);
     free(mat);

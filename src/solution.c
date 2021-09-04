@@ -56,12 +56,12 @@ void solution_get_str(gj_vector sol, minfo_t *minfo, char *str)
     solution_remove_space(str);
 }
 
-void solution_print(gj_vector *mat, minfo_t *minfo)
+void solution_print(gj_vector *mat, minfo_t *minfo, FILE *stream)
 {
     gj_vector sol = solution_get(mat, minfo);
     char str[SOL_MAXLEN];
     solution_get_str(sol, minfo, str);
     solution_remove_space(str);
-    printf("%s\n", str);
+    fprintf(stream, "%s\n", str);
     free(sol);
 }

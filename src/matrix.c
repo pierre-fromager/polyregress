@@ -59,16 +59,16 @@ void mat_set_col(gj_vector *mat, unsigned col, gj_vector *vect, minfo_t *minfo, 
         mat_set_value(mat, rows, col, minfo, *(*vect + rows + offset));
 }
 
-void mat_print(gj_vector *mat, minfo_t *minfo)
+void mat_print(gj_vector *mat, minfo_t *minfo, FILE *stream)
 {
     unsigned rows;
     gj_vector rv;
-    printf("\n");
+    fprintf(stream, "\n");
     rv = malloc(mat_row_asize(minfo));
     for (rows = 0; rows < minfo->nbrow; rows++)
     {
         mat_get_row(mat, minfo, rows, &rv);
-        mat_print_vect(&rv, minfo->nbcol);
+        mat_print_vect(&rv, minfo->nbcol, stream);
     }
     free(rv);
 }
@@ -80,12 +80,12 @@ void mat_fill_vect(gj_vector *vect, unsigned size, double value)
         *(*vect + i) = value;
 }
 
-void mat_print_vect(gj_vector *vect, unsigned size)
+void mat_print_vect(gj_vector *vect, unsigned size, FILE *stream)
 {
     unsigned i;
     for (i = 0; i < size; i++)
-        printf("%7.5lf \t", *(*vect + i));
-    printf("\n");
+        fprintf(stream, "%7.5lf \t", *(*vect + i));
+    fprintf(stream, "\n");
 }
 
 void mat_init(gj_vector *mat, minfo_t *minfo, double value)

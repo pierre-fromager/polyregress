@@ -38,9 +38,9 @@ void mat_get_col(gj_vector *mat, minfo_t *minfo, unsigned col, gj_vector *colvec
 void mat_set_row(gj_vector *mat, unsigned row, gj_vector *vect, minfo_t *minfo);
 void mat_swap_row(gj_vector *mat, unsigned i, unsigned k, minfo_t *minfo);
 void mat_set_col(gj_vector *mat, unsigned col, gj_vector *vect, minfo_t *minfo, unsigned offset);
-void mat_print(gj_vector *mat, minfo_t *minfo);
+void mat_print(gj_vector *mat, minfo_t *minfo, FILE *stream);
 void mat_fill_vect(gj_vector *vect, unsigned size, double value);
-void mat_print_vect(gj_vector *vect, unsigned size);
+void mat_print_vect(gj_vector *vect, unsigned size, FILE *stream);
 void mat_init(gj_vector *mat, minfo_t *minfo, double value);
 
 #endif // _POLYREG_MATRIX_
