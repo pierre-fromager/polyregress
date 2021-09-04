@@ -102,7 +102,18 @@ void test_polyregress_gaussjordan_gauss_echelonize()
 {
     CU_ASSERT_PTR_NOT_NULL_FATAL(mat);
     CU_ASSERT_PTR_NOT_NULL_FATAL(minfo);
-    mat_init(&mat, minfo, 2.0);
+    unsigned cpt_col;
+    const double initial_value = 12.0;
+    const double expected_echelonized_value = 1.0;
+    const double expected_eliminated_value = 0.0;
+    const unsigned row_index = 0;
+    const unsigned accuracy = 10;
+    mat_init(&mat, minfo, initial_value);
     gauss_echelonize(&mat, minfo);
-    CU_PASS("WIP");
+    mat_get_row(&mat, minfo, row_index, &row);
+    for (cpt_col = 0; cpt_col < minfo->nbcol; cpt_col++)
+        CU_ASSERT_DOUBLE_EQUAL(*(row + cpt_col), expected_echelonized_value, accuracy);
+    mat_get_row(&mat, minfo, row_index + 1, &row);
+    for (cpt_col = 0; cpt_col < minfo->nbcol; cpt_col++)
+        CU_ASSERT_DOUBLE_EQUAL(*(row + cpt_col), expected_eliminated_value, accuracy);
 }
