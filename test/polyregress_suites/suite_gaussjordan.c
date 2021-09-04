@@ -1,13 +1,29 @@
 
 #include "suite_gaussjordan.h"
 
+gj_vector mat;
+gj_vector col;
+gj_vector row;
+minfo_t *minfo;
+
 static int setup(void)
 {
+    minfo = malloc(sizeof(minfo_t));
+    minfo->degree = 4;
+    minfo->nbcol = minfo->degree + 2;
+    minfo->nbrow = minfo->degree + 1;
+    mat = malloc((minfo->nbcol * minfo->nbrow) * sizeof(double));
+    col = malloc(minfo->nbrow * sizeof(double));
+    row = malloc(minfo->nbcol * sizeof(double));
     return 0;
 }
 
 static int teardown(void)
 {
+    free(col);
+    free(row);
+    free(minfo);
+    free(mat);
     return 0;
 }
 
@@ -16,7 +32,9 @@ static struct
     void (*function)(void);
     char *name;
 } test_functions[] = {
-    {test_polyregress_gaussjordan_gj_echelonize, "gj_echelonize"},
+    {test_polyregress_gaussjordan_gauss_divide, "gauss_divide"},
+    {test_polyregress_gaussjordan_gauss_eliminate, "gauss_eliminate"},
+    {test_polyregress_gaussjordan_gauss_echelonize, "gauss_echelonize"},
     {0, 0},
 };
 
@@ -45,7 +63,37 @@ void test_polyregress_gaussjordan_add_suite()
     }
 }
 
-void test_polyregress_gaussjordan_gj_echelonize()
+void test_polyregress_gaussjordan_gauss_divide()
 {
+    CU_ASSERT_PTR_NOT_NULL_FATAL(mat);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(minfo);
+    unsigned cpt_col;
+    const double initial_value = 4.0;
+    const double expected_value = 1.0;
+    const unsigned row_index = 0;
+    const unsigned accuracy = 10;
+    mat_init(&mat, minfo, initial_value);
+    gauss_divide(&mat, row_index, 0, minfo);
+    mat_get_row(&mat, minfo, row_index, &row);
+    for (cpt_col = 0; cpt_col < minfo->nbcol; cpt_col++)
+        CU_ASSERT_DOUBLE_EQUAL(*(row + cpt_col), expected_value, accuracy);
+}
+
+void test_polyregress_gaussjordan_gauss_eliminate()
+{
+    CU_ASSERT_PTR_NOT_NULL_FATAL(mat);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(minfo);
+    mat_init(&mat, minfo, 0.1);
+    gauss_eliminate(&mat, 1, 1, minfo);
+    mat_print(&mat, minfo);
+    CU_PASS("WIP");
+}
+
+void test_polyregress_gaussjordan_gauss_echelonize()
+{
+    CU_ASSERT_PTR_NOT_NULL_FATAL(mat);
+    CU_ASSERT_PTR_NOT_NULL_FATAL(minfo);
+    mat_init(&mat, minfo, 2.0);
+    gauss_echelonize(&mat, minfo);
     CU_PASS("WIP");
 }

@@ -1,7 +1,7 @@
 
 #include "gaussjordan.h"
 
-static void divide(gj_vector *mat, unsigned i, unsigned j, minfo_t *minfo)
+void gauss_divide(gj_vector *mat, unsigned i, unsigned j, minfo_t *minfo)
 {
     unsigned q;
     for (q = j + 1; q < minfo->nbcol; q++)
@@ -12,7 +12,7 @@ static void divide(gj_vector *mat, unsigned i, unsigned j, minfo_t *minfo)
     mat_set_value(mat, i, j, minfo, 1.0);
 }
 
-static void eliminate(gj_vector *mat, unsigned i, unsigned j, minfo_t *minfo)
+void gauss_eliminate(gj_vector *mat, unsigned i, unsigned j, minfo_t *minfo)
 {
     unsigned k, q;
     for (k = 0; k < minfo->nbrow; k++)
@@ -27,7 +27,7 @@ static void eliminate(gj_vector *mat, unsigned i, unsigned j, minfo_t *minfo)
         }
 }
 
-void gj_echelonize(gj_vector *mat, minfo_t *minfo)
+void gauss_echelonize(gj_vector *mat, minfo_t *minfo)
 {
     unsigned i, j, k;
     i = j = 0;
@@ -41,8 +41,8 @@ void gj_echelonize(gj_vector *mat, minfo_t *minfo)
             if (k != i)
                 mat_swap_row(mat, i, k, minfo);
             if (mat_get_value(mat, i, j, minfo) != 1)
-                divide(mat, i, j, minfo);
-            eliminate(mat, i, j, minfo);
+                gauss_divide(mat, i, j, minfo);
+            gauss_eliminate(mat, i, j, minfo);
             i += 1;
         }
         j += 1;

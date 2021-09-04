@@ -75,7 +75,7 @@ int main(int argc, char *argv[])
 #ifdef POLY_DEBUG
     mat_print(&mat, minfo);
 #endif
-    gj_echelonize(&mat, minfo);
+    gauss_echelonize(&mat, minfo);
 #ifdef POLY_DEBUG
     mat_print(&mat, minfo);
     printf("\n");

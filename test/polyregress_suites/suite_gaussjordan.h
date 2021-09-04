@@ -10,6 +10,8 @@
 
 void test_polyregress_gaussjordan_add_suite(void);
 
-void test_polyregress_gaussjordan_gj_echelonize(void);
+void test_polyregress_gaussjordan_gauss_divide(void);
+void test_polyregress_gaussjordan_gauss_eliminate(void);
+void test_polyregress_gaussjordan_gauss_echelonize(void);
 
 #endif
