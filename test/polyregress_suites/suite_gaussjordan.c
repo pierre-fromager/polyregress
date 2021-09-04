@@ -83,10 +83,19 @@ void test_polyregress_gaussjordan_gauss_eliminate()
 {
     CU_ASSERT_PTR_NOT_NULL_FATAL(mat);
     CU_ASSERT_PTR_NOT_NULL_FATAL(minfo);
-    mat_init(&mat, minfo, 0.1);
-    gauss_eliminate(&mat, 1, 1, minfo);
-    mat_print(&mat, minfo);
-    CU_PASS("WIP");
+    unsigned cpt_col;
+    const double initial_value = 1.0;
+    const double expected_eliminated_value = 0.0;
+    const unsigned row_index = 0;
+    const unsigned accuracy = 10;
+    mat_init(&mat, minfo, initial_value);
+    gauss_eliminate(&mat, row_index, 0, minfo);
+    mat_get_row(&mat, minfo, row_index, &row);
+    for (cpt_col = 0; cpt_col < minfo->nbcol; cpt_col++)
+        CU_ASSERT_DOUBLE_EQUAL(*(row + cpt_col), initial_value, accuracy);
+    mat_get_row(&mat, minfo, row_index + 1, &row);
+    for (cpt_col = 0; cpt_col < minfo->nbcol; cpt_col++)
+        CU_ASSERT_DOUBLE_EQUAL(*(row + cpt_col), expected_eliminated_value, accuracy);
 }
 
 void test_polyregress_gaussjordan_gauss_echelonize()
