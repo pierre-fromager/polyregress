@@ -10,6 +10,7 @@
 
 void test_polyregress_matrix_add_suite(void);
 
+void test_polyregress_matrix_mat_set_dim(void);
 void test_polyregress_matrix_mat_storage(void);
 void test_polyregress_matrix_mat_set_value(void);
 void test_polyregress_matrix_mat_get_value(void);

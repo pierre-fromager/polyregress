@@ -6,19 +6,25 @@ gj_vector col;
 gj_vector row;
 minfo_t *minfo;
 
-static int setup(void)
+static int reset_test(void)
+{
+    minfo->degree = 4;
+    minfo->set_dim = mat_set_dim;
+    minfo->set_dim(minfo);
+    return 0;
+}
+
+static int suite_setup(void)
 {
     minfo = malloc(sizeof(minfo_t));
-    minfo->degree = 4;
-    minfo->nbcol = minfo->degree + 2;
-    minfo->nbrow = minfo->degree + 1;
+    reset_test();
     mat = malloc((minfo->nbcol * minfo->nbrow) * sizeof(double));
     col = malloc(minfo->nbrow * sizeof(double));
     row = malloc(minfo->nbcol * sizeof(double));
     return 0;
 }
 
-static int teardown(void)
+static int suite_teardown(void)
 {
     free(col);
     free(row);
@@ -32,6 +38,7 @@ static struct
     void (*function)(void);
     char *name;
 } test_functions[] = {
+    {test_polyregress_matrix_mat_set_dim, "mat_set_dim"},
     {test_polyregress_matrix_mat_storage, "mat_storage"},
     {test_polyregress_matrix_mat_set_value, "mat_set_value"},
     {test_polyregress_matrix_mat_get_value, "mat_get_value"},
@@ -52,7 +59,7 @@ void test_polyregress_matrix_add_suite()
     const char *suite_name = "matrix";
     const char *suite_err_fmt = "Error adding suite %s : %s\n";
     const char *test_err_fmt = "Error adding test '%s' : %s\n";
-    CU_pSuite suite = CU_add_suite(suite_name, setup, teardown);
+    CU_pSuite suite = CU_add_suite(suite_name, suite_setup, suite_teardown);
     if (!suite)
     {
         CU_cleanup_registry();
@@ -72,8 +79,27 @@ void test_polyregress_matrix_add_suite()
     }
 }
 
+void test_polyregress_matrix_mat_set_dim()
+{
+    reset_test();
+    minfo->degree = 0;
+    minfo->nbcol = 0;
+    minfo->nbrow = 0;
+    minfo->set_dim = mat_set_dim;
+    minfo->set_dim(minfo);
+    CU_ASSERT_EQUAL(minfo->nbcol, minfo->degree + 2);
+    CU_ASSERT_EQUAL(minfo->nbrow, minfo->degree + 1);
+    minfo->degree = 4;
+    minfo->nbcol = 0;
+    minfo->nbrow = 0;
+    minfo->set_dim(minfo);
+    CU_ASSERT_EQUAL(minfo->nbcol, minfo->degree + 2);
+    CU_ASSERT_EQUAL(minfo->nbrow, minfo->degree + 1);
+}
+
 void test_polyregress_matrix_mat_storage()
 {
+    reset_test();
     unsigned stor_ix;
     stor_ix = mat_storage(0, 0, minfo);
     CU_ASSERT_EQUAL(stor_ix, 0);
@@ -84,6 +110,7 @@ void test_polyregress_matrix_mat_storage()
 
 void test_polyregress_matrix_mat_set_value()
 {
+    reset_test();
     double val;
     CU_ASSERT_PTR_NOT_NULL_FATAL(mat);
     CU_ASSERT_PTR_NOT_NULL_FATAL(minfo);
@@ -97,6 +124,7 @@ void test_polyregress_matrix_mat_set_value()
 
 void test_polyregress_matrix_mat_get_value()
 {
+    reset_test();
     CU_ASSERT_PTR_NOT_NULL_FATAL(mat);
     CU_ASSERT_PTR_NOT_NULL_FATAL(minfo);
     double val;
@@ -112,6 +140,7 @@ void test_polyregress_matrix_mat_get_value()
 
 void test_polyregress_matrix_mat_get_row()
 {
+    reset_test();
     CU_ASSERT_PTR_NOT_NULL_FATAL(mat);
     CU_ASSERT_PTR_NOT_NULL_FATAL(minfo);
     unsigned icol;
@@ -127,6 +156,7 @@ void test_polyregress_matrix_mat_get_row()
 
 void test_polyregress_matrix_mat_get_col()
 {
+    reset_test();
     CU_ASSERT_PTR_NOT_NULL_FATAL(mat);
     CU_ASSERT_PTR_NOT_NULL_FATAL(minfo);
     unsigned irow;
@@ -142,6 +172,7 @@ void test_polyregress_matrix_mat_get_col()
 
 void test_polyregress_matrix_mat_set_row()
 {
+    reset_test();
     CU_ASSERT_PTR_NOT_NULL_FATAL(mat);
     CU_ASSERT_PTR_NOT_NULL_FATAL(minfo);
     unsigned icol;
@@ -158,6 +189,7 @@ void test_polyregress_matrix_mat_set_row()
 
 void test_polyregress_matrix_mat_swap_row()
 {
+    reset_test();
     CU_ASSERT_PTR_NOT_NULL_FATAL(mat);
     CU_ASSERT_PTR_NOT_NULL_FATAL(minfo);
     unsigned icol;
@@ -180,6 +212,7 @@ void test_polyregress_matrix_mat_swap_row()
 
 void test_polyregress_matrix_mat_set_col()
 {
+    reset_test();
     CU_ASSERT_PTR_NOT_NULL_FATAL(mat);
     CU_ASSERT_PTR_NOT_NULL_FATAL(minfo);
     unsigned irow;
@@ -198,6 +231,7 @@ void test_polyregress_matrix_mat_set_col()
 
 void test_polyregress_matrix_mat_fill_vect()
 {
+    reset_test();
     gj_vector vect;
     const unsigned vlen = 1024;
     const unsigned vlen_half = vlen / 2;
@@ -215,6 +249,7 @@ void test_polyregress_matrix_mat_fill_vect()
 
 void test_polyregress_matrix_mat_init()
 {
+    reset_test();
     unsigned icol, irow;
     CU_ASSERT_PTR_NOT_NULL_FATAL(mat);
     CU_ASSERT_PTR_NOT_NULL_FATAL(minfo);
