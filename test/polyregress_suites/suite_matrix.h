@@ -9,6 +9,7 @@
 #include "../../src/matrix.h"
 
 void test_polyregress_matrix_add_suite(void);
+void reset_test_matrix(void);
 
 void test_polyregress_matrix_mat_set_dim(void);
 void test_polyregress_matrix_mat_storage(void);
