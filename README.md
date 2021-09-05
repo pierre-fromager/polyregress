@@ -61,7 +61,17 @@ Input buffer is limited to 2048 bytes but you can change it in main.
 
 ## Tests
 
-to build CUNIT tests
+To setup CUNIT framework from Debian package :
+``` 
+sudo apt-get install libcunit1 libcunit1-dev 
+```
+To build CUNIT from source, follow the [README](https://gitlab.com/cunity/cunit).  
+Then
+``` 
+make
+sudo make install
+```
+To build CUNIT tests
 
 ``` 
 make

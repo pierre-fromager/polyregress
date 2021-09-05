@@ -1,7 +1,6 @@
 
 #include <CUnit/Basic.h>
 #include <CUnit/Console.h>
-#include <CUnit/CUCurses.h>
 #include <CUnit/CUnit.h>
 #include <getopt.h>
 #include <string.h>
@@ -19,7 +18,6 @@ int main(int argc, char *argv[])
 	{
 		OPT_INTERFACE_BASIC = 'b',
 		OPT_INTERFACE_CONSOLE = 'c',
-		OPT_INTERFACE_NCURSES = 'C',
 		OPT_HELP = 'h',
 		OPT_INTERFACE = 'i',
 	};
@@ -35,7 +33,6 @@ int main(int argc, char *argv[])
 	{
 		interface_basic,
 		interface_console,
-		interface_ncurses,
 	} interface = interface_basic;
 
 	struct
@@ -45,7 +42,6 @@ int main(int argc, char *argv[])
 	} interfaces[] = {
 		{interface_basic, "basic"},
 		{interface_console, "console"},
-		{interface_ncurses, "ncurses"},
 		{0, 0},
 	};
 
@@ -86,9 +82,6 @@ int main(int argc, char *argv[])
 		case OPT_INTERFACE_CONSOLE:
 			interface = interface_console;
 			break;
-		case OPT_INTERFACE_NCURSES:
-			interface = interface_ncurses;
-			break;
 		case OPT_HELP:
 			return 0;
 		default:
@@ -120,10 +113,6 @@ int main(int argc, char *argv[])
 
 	case interface_console:
 		CU_console_run_tests();
-		break;
-
-	case interface_ncurses:
-		CU_curses_run_tests();
 		break;
 	default:
 		break;
