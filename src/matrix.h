@@ -19,17 +19,21 @@
 #include <stdint.h>
 #include <stdio.h>
 
+typedef struct minfo_s *minfo_ptr_t;
+typedef struct minfo_s minfo_t;
+
 struct minfo_s
 {
     unsigned degree;
     unsigned nbcol;
     unsigned nbrow;
     unsigned nbpoints;
+    minfo_ptr_t (*set_dim)(minfo_t *);
 };
 
-typedef struct minfo_s minfo_t;
 typedef double *gj_vector;
 
+minfo_ptr_t mat_set_dim(minfo_t *self);
 unsigned mat_storage(unsigned row, unsigned col, minfo_t *minfo);
 void mat_set_value(gj_vector *mat, unsigned row, unsigned col, minfo_t *minfo, double value);
 double mat_get_value(gj_vector *mat, unsigned row, unsigned col, minfo_t *minfo);

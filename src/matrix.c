@@ -1,6 +1,13 @@
 
 #include "matrix.h"
 
+minfo_ptr_t mat_set_dim(minfo_t *self)
+{
+    self->nbcol = self->degree + 2;
+    self->nbrow = self->degree + 1;
+    return self;
+}
+
 static size_t mat_row_asize(minfo_t *minfo)
 {
     return sizeof(double) * minfo->nbcol;

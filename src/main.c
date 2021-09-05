@@ -36,7 +36,8 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
     gj_vector raw_data;
-    unsigned datacpt, degree = 0;
+    unsigned datacpt, degree;
+    degree = datacpt = 0;
     raw_data = malloc(sizeof(double) * RAW_ARR_SIZE);
     populate_data(&raw_data, &datacpt, &degree, stdin);
     populate_check(datacpt, degree);
@@ -44,8 +45,8 @@ int main(int argc, char *argv[])
     minfo_t *minfo;
     minfo = malloc(sizeof(minfo_t));
     minfo->degree = degree;
-    minfo->nbcol = minfo->degree + 2;
-    minfo->nbrow = minfo->degree + 1;
+    minfo->set_dim = mat_set_dim;
+    minfo->set_dim(minfo);
     minfo->nbpoints = nb_points;
     unsigned c;
     points_t points;
