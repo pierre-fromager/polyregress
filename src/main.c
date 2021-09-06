@@ -29,6 +29,8 @@
 
 int main(int argc, char *argv[])
 {
+    FILE *streamin = stdin;
+    FILE *streamout = stdout;
     if (argc < 2)
     {
         printf(MSG_USG_0);
@@ -39,7 +41,7 @@ int main(int argc, char *argv[])
     mi_item_t datacpt, degree;
     degree = datacpt = 0;
     raw_data = malloc(sizeof(pr_item_t) * RAW_ARR_SIZE);
-    populate_data(&raw_data, &datacpt, &degree, stdin);
+    populate_data(&raw_data, &datacpt, &degree, streamin);
     populate_check(datacpt, degree);
     const mi_item_t nb_points = datacpt / 2;
     minfo_t *minfo;
@@ -63,7 +65,7 @@ int main(int argc, char *argv[])
     matcalc_mpc(&mpc, &points, minfo);
     mat_init(&mat, minfo, 0.0);
 #ifdef POLY_DEBUG
-    mat_print(&mat, minfo, stdout);
+    mat_print(&mat, minfo, streamout);
 #endif
     mat_set_row(&mat, 0, &mpc, minfo);
     for (c = 0; c < minfo->nbrow; ++c)
@@ -74,14 +76,14 @@ int main(int argc, char *argv[])
     free(points);
 
 #ifdef POLY_DEBUG
-    mat_print(&mat, minfo, stdout);
+    mat_print(&mat, minfo, streamout);
 #endif
     gauss_echelonize(&mat, minfo);
 #ifdef POLY_DEBUG
-    mat_print(&mat, minfo, stdout);
+    mat_print(&mat, minfo, streamout);
     printf("\n");
 #endif
-    solution_print(&mat, minfo, stdout);
+    solution_print(&mat, minfo, streamout);
 
     free(minfo);
     free(mat);
