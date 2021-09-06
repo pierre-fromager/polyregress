@@ -1,7 +1,7 @@
 
 #include "points.h"
 
-void points_init(gj_vector *data, points_t *points, unsigned nbPoints)
+void points_init(pr_vector *data, points_t *points, unsigned nbPoints)
 {
     unsigned c;
     for (c = 0; c < nbPoints; c++)

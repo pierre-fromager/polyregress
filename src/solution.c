@@ -34,15 +34,15 @@ static char *solution_get_fmt(unsigned c)
     }
 }
 
-gj_vector solution_get(gj_vector *mat, minfo_t *minfo)
+pr_vector solution_get(pr_vector *mat, minfo_t *minfo)
 {
-    gj_vector sol;
+    pr_vector sol;
     sol = malloc(sizeof(double) * minfo->nbcol);
     mat_get_col(mat, minfo, minfo->nbcol - 1, &sol);
     return sol;
 }
 
-void solution_get_str(gj_vector sol, minfo_t *minfo, char *str)
+void solution_get_str(pr_vector sol, minfo_t *minfo, char *str)
 {
     unsigned c = 0;
     snprintf(str, (size_t)SOL_MAXLEN, solution_get_fmt(c), sol[c]);
@@ -56,9 +56,9 @@ void solution_get_str(gj_vector sol, minfo_t *minfo, char *str)
     solution_remove_space(str);
 }
 
-void solution_print(gj_vector *mat, minfo_t *minfo, FILE *stream)
+void solution_print(pr_vector *mat, minfo_t *minfo, FILE *stream)
 {
-    gj_vector sol = solution_get(mat, minfo);
+    pr_vector sol = solution_get(mat, minfo);
     char str[SOL_MAXLEN];
     solution_get_str(sol, minfo, str);
     solution_remove_space(str);

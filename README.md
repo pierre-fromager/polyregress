@@ -61,35 +61,37 @@ Input buffer is limited to 2048 bytes but you can change it in main.
 
 ## Tests
 
-To setup CUNIT framework from Debian package :
+Tests are based on [CUnity/Cunit framework](https://gitlab.com/cunity/cunit).  
+Setup from Debian package (old release ...v2.1)   
 ``` 
 sudo apt-get install libcunit1 libcunit1-dev 
 ```
-To build CUNIT from source, follow the [README](https://gitlab.com/cunity/cunit).  
+Or build from source (fresh release v3.2.7), clone repo and follow the Readme.  
 Then
 ``` 
 make
 sudo make install
 ```
-To build CUNIT tests
+I recommend to build from source because setup and teardown can be done both on suite and test.
+
+Build tests from root project.  
 
 ``` 
 make
 make test
 ```
-to run tests with or without options (bcChi)
+to run tests with or without options (bci)
 ``` 
 ./polyregress_test <options>
 ```
 
 ## Todo
 
-* Unit tests.
-* Improve arguments flags.
-* Populate data from file format (csv,..).
+* Add features from arguments flags.
+* Populate data from various file format (csv,..).
 
 ## Links
 
-* [c++ polyreg](https://gogs.pier-infor.fr/pf.pier-infor.fr/polyreg) to reuse result and play with the gnuplot renderer.
+* [C++ polyreg](https://gogs.pier-infor.fr/pf.pier-infor.fr/polyreg) to reuse result and play with the gnuplot renderer.
 * [Array Pointer](https://www.geeksforgeeks.org/pointer-array-array-pointer/) to understand how to use a 2D matrix with a 1D array and pointers.
 * [Matrices and Linear Algebra](http://www.mymathlib.com/matrices/) to find most common practices on matrices.

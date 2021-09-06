@@ -1,7 +1,7 @@
 
 #include "suite_points.h"
 
-gj_vector datapoints;
+pr_vector datapoints;
 point_t *points;
 unsigned nb_points;
 

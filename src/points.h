@@ -23,6 +23,6 @@ typedef struct point_s
 
 typedef point_t *points_t;
 
-void points_init(gj_vector *data, points_t *points, unsigned nbPoints);
+void points_init(pr_vector *data, points_t *points, unsigned nbPoints);
 
 #endif // _POLYREG_POINTS_

@@ -1,8 +1,8 @@
 
 #include "suite_solution.h"
 
-gj_vector mat;
-gj_vector sol;
+pr_vector mat;
+pr_vector sol;
 char solstr[SOL_MAXLEN];
 minfo_t *minfo;
 

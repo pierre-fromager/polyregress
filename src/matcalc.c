@@ -1,7 +1,7 @@
 
 #include "matcalc.h"
 
-void matcalc_mpc(gj_vector *mpc, points_t *points, minfo_t *minfo)
+void matcalc_mpc(pr_vector *mpc, points_t *points, minfo_t *minfo)
 {
     unsigned cr, cl;
     double s;
@@ -16,7 +16,7 @@ void matcalc_mpc(gj_vector *mpc, points_t *points, minfo_t *minfo)
     }
 }
 
-void matcalc_rhs(gj_vector *mat, points_t *points, minfo_t *minfo)
+void matcalc_rhs(pr_vector *mat, points_t *points, minfo_t *minfo)
 {
     unsigned c, r;
     double rhs;

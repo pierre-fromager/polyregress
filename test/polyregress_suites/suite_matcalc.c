@@ -1,12 +1,12 @@
 
 #include "suite_matcalc.h"
 
-gj_vector mat;
-gj_vector col;
-gj_vector row;
+pr_vector mat;
+pr_vector col;
+pr_vector row;
 minfo_t *minfo;
 point_t *points;
-gj_vector mpc;
+pr_vector mpc;
 
 const double points_x[SUITE_MATCAL_NB_POINTS] = {1, 2, 3, 4, 5};
 const double points_y[SUITE_MATCAL_NB_POINTS] = {0, 2, 1, 4, 2};

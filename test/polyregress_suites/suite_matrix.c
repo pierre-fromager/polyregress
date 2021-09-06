@@ -1,9 +1,9 @@
 
 #include "suite_matrix.h"
 
-gj_vector mat;
-gj_vector col;
-gj_vector row;
+pr_vector mat;
+pr_vector col;
+pr_vector row;
 minfo_t *minfo;
 
 void reset_test_matrix()
@@ -231,7 +231,7 @@ void test_polyregress_matrix_mat_set_col()
 void test_polyregress_matrix_mat_fill_vect()
 {
     reset_test_matrix();
-    gj_vector vect;
+    pr_vector vect;
     const unsigned vlen = 1024;
     const unsigned vlen_half = vlen / 2;
     const double initial_val = 0.0;

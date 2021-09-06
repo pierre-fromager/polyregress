@@ -1,7 +1,7 @@
 
 #include "populate.h"
 
-void populate_data(gj_vector *rawArray, unsigned *datacpt, unsigned *degree, FILE *stream)
+void populate_data(pr_vector *rawArray, unsigned *datacpt, unsigned *degree, FILE *stream)
 {
     uint8_t degree_set = 0;
     char bufin[LINE_BUF_SIZE];

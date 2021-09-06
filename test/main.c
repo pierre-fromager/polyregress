@@ -1,3 +1,15 @@
+/**
+ * @file main.c
+ * @author Pierre Fromager (info@pier-infor.fr)
+ * @brief cunit main suite runner
+ * All suites and tests should run from cunit v1.3 to v3.2.7(latest)
+ * 
+ * @version 0.1
+ * @date 2021-09-05
+ * @url https://gitlab.com/cunity/cunit
+ * @copyright Copyright (c) 2021
+ * 
+ */
 
 #include <CUnit/Basic.h>
 #include <CUnit/Console.h>
@@ -48,7 +60,7 @@ int main(int argc, char *argv[])
 	int opt;
 	do
 	{
-		opt = getopt_long(argc, argv, "bcChi:", long_options, &option_index);
+		opt = getopt_long(argc, argv, "bchi:", long_options, &option_index);
 		switch (opt)
 		{
 		case -1:

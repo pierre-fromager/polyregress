@@ -1,9 +1,9 @@
 
 #include "suite_gaussjordan.h"
 
-gj_vector mat;
-gj_vector col;
-gj_vector row;
+pr_vector mat;
+pr_vector col;
+pr_vector row;
 minfo_t *minfo;
 
 static int setup(void)
