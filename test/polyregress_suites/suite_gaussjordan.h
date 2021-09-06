@@ -9,6 +9,7 @@
 #include "../../src/gaussjordan.h"
 
 void test_polyregress_gaussjordan_add_suite(void);
+void reset_test_gaussjordan(void);
 
 void test_polyregress_gaussjordan_gauss_divide(void);
 void test_polyregress_gaussjordan_gauss_eliminate(void);
