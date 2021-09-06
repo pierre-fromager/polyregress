@@ -11,14 +11,14 @@ const mi_item_t expected_degree = 4;
 const mi_item_t expected_nb_points = 10;
 const pr_item_t expected_points[] = {1.0, 0.0, 2.0, 2.0, 3.0, 1.0, 4.0, 4.0, 5.0, 2.0};
 
-static int setup(void)
+static int suite_setup(void)
 {
     nb_points = 0;
     degree = 0;
     return 0;
 }
 
-static int teardown(void)
+static int suite_teardown(void)
 {
     return 0;
 }
@@ -38,7 +38,7 @@ void test_polyregress_populate_add_suite()
     const char *suite_name = "populate";
     const char *suite_err_fmt = "Error adding suite %s : %s\n";
     const char *test_err_fmt = "Error adding test '%s' : %s\n";
-    CU_pSuite suite = CU_add_suite(suite_name, setup, teardown);
+    CU_pSuite suite = CU_add_suite(suite_name, suite_setup, suite_teardown);
     if (!suite)
     {
         CU_cleanup_registry();

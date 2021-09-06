@@ -5,18 +5,26 @@ pr_vector_t mat;
 pr_vector_t sol;
 char solstr[SOL_MAXLEN];
 minfo_t *minfo;
+mi_item_t c;
 
-static int setup(void)
+const pr_item_t initial_val = 0.0;
+
+void reset_test_solution()
+{
+    minfo->degree = 4;
+    minfo->set_dim = mat_set_dim;
+    minfo->set_dim(minfo);
+}
+
+static int suite_setup(void)
 {
     minfo = malloc(sizeof(minfo_t));
-    minfo->degree = 4;
-    minfo->nbcol = minfo->degree + 2;
-    minfo->nbrow = minfo->degree + 1;
+    reset_test_solution();
     mat = malloc((minfo->nbcol * minfo->nbrow) * sizeof(pr_item_t));
     return 0;
 }
 
-static int teardown(void)
+static int suite_teardown(void)
 {
     free(sol);
     free(minfo);
@@ -40,7 +48,7 @@ void test_polyregress_solution_add_suite()
     const char *suite_name = "solution";
     const char *suite_err_fmt = "Error adding suite %s : %s\n";
     const char *test_err_fmt = "Error adding test '%s' : %s\n";
-    CU_pSuite suite = CU_add_suite(suite_name, setup, teardown);
+    CU_pSuite suite = CU_add_suite(suite_name, suite_setup, suite_teardown);
     if (!suite)
     {
         CU_cleanup_registry();
@@ -64,8 +72,7 @@ void test_polyregress_solution_solution_get()
 {
     CU_ASSERT_PTR_NOT_NULL_FATAL(mat);
     CU_ASSERT_PTR_NOT_NULL_FATAL(minfo);
-    mi_item_t c;
-    const pr_item_t initial_val = 0.0;
+    reset_test_solution();
     const pr_item_t expected_val = 10.0;
     mat_init(&mat, minfo, initial_val);
     sol = solution_get(&mat, minfo);
@@ -87,14 +94,13 @@ void test_polyregress_solution_solution_get_str()
 {
     CU_ASSERT_PTR_NOT_NULL_FATAL(mat);
     CU_ASSERT_PTR_NOT_NULL_FATAL(minfo);
-    const pr_item_t initial_val = 0.0;
+    reset_test_solution();
     mat_init(&mat, minfo, initial_val);
     sol = solution_get(&mat, minfo);
     solution_get_str(sol, minfo, solstr);
     CU_ASSERT_STRING_NOT_EQUAL(solstr, " ");
     CU_ASSERT_STRING_NOT_EQUAL(solstr, "\0");
-    const char *exptectedstr = "y=0.00000000000000+0.00000000000000*x+0.00000000000000*x^2+0.00000000000000*x^3+0.00000000000000*x^4";
-    CU_ASSERT_STRING_EQUAL(solstr, exptectedstr);
+    CU_ASSERT_STRING_EQUAL(solstr, SOLUTION_SUITE_STR_EXP);
 }
 
 void test_polyregress_solution_solution_print()

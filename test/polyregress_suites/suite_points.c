@@ -9,7 +9,7 @@ const pr_item_t suite_points_data[] = {1.0, 0.0, 2.0, 2.0, 3.0, 1.0, 4.0, 4.0, 5
 const pr_item_t exptected_suite_points_x[SUITE_POINTS_NB_POINTS] = {1, 2, 3, 4, 5};
 const pr_item_t exptected_suite_points_y[SUITE_POINTS_NB_POINTS] = {0, 2, 1, 4, 2};
 
-static int setup(void)
+static int suite_setup(void)
 {
     nb_points = SUITE_POINTS_NB_POINTS * 2;
     size_t datapoints_asize = (sizeof(pr_item_t) * nb_points);
@@ -19,7 +19,7 @@ static int setup(void)
     return 0;
 }
 
-static int teardown(void)
+static int suite_teardown(void)
 {
     free(points);
     free(datapoints);
@@ -40,7 +40,7 @@ void test_polyregress_points_add_suite()
     const char *suite_name = "points";
     const char *suite_err_fmt = "Error adding suite %s : %s\n";
     const char *test_err_fmt = "Error adding test '%s' : %s\n";
-    CU_pSuite suite = CU_add_suite(suite_name, setup, teardown);
+    CU_pSuite suite = CU_add_suite(suite_name, suite_setup, suite_teardown);
     if (!suite)
     {
         CU_cleanup_registry();
