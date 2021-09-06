@@ -1,9 +1,9 @@
 
 #include "points.h"
 
-void points_init(pr_vector_t *data, points_t *points, unsigned nbPoints)
+void points_init(pr_vector_t *data, points_t *points, mi_item_t nbPoints)
 {
-    unsigned c;
+    mi_item_t c;
     for (c = 0; c < nbPoints; c++)
     {
         const int i = (int)c / 2;

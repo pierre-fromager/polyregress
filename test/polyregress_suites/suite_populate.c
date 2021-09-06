@@ -3,12 +3,12 @@
 
 pr_vector_t datapoints;
 point_t *points;
-unsigned nb_points;
-unsigned degree;
+mi_item_t nb_points;
+mi_item_t degree;
 FILE *handle;
 const char *points_filename = "test/data/points.txt";
-const unsigned expected_degree = 4;
-const unsigned expected_nb_points = 10;
+const mi_item_t expected_degree = 4;
+const mi_item_t expected_nb_points = 10;
 const pr_item_t expected_points[] = {1.0, 0.0, 2.0, 2.0, 3.0, 1.0, 4.0, 4.0, 5.0, 2.0};
 
 static int setup(void)
@@ -60,7 +60,7 @@ void test_polyregress_populate_add_suite()
 
 void test_polyregress_populate_populate_data()
 {
-    unsigned pts_cpt;
+    mi_item_t pts_cpt;
     handle = fopen(points_filename, "r");
     if (handle != NULL)
     {

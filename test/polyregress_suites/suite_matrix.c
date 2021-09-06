@@ -99,7 +99,7 @@ void test_polyregress_matrix_mat_set_dim()
 void test_polyregress_matrix_mat_storage()
 {
     reset_test_matrix();
-    unsigned stor_ix;
+    mi_item_t stor_ix;
     stor_ix = mat_storage(0, 0, minfo);
     CU_ASSERT_EQUAL(stor_ix, 0);
     stor_ix = mat_storage(minfo->nbrow, minfo->nbcol, minfo);
@@ -128,8 +128,8 @@ void test_polyregress_matrix_mat_get_value()
     reset_test_matrix();
     pr_item_t val;
     mat_init(&mat, minfo, 10.0);
-    const unsigned last_col_number = minfo->nbcol - 1;
-    const unsigned last_row_number = minfo->nbrow - 1;
+    const mi_item_t last_col_number = minfo->nbcol - 1;
+    const mi_item_t last_row_number = minfo->nbrow - 1;
     mat_set_value(&mat, last_row_number, last_col_number, minfo, 0.0);
     val = mat_get_value(&mat, last_row_number, last_col_number, minfo);
     CU_ASSERT_EQUAL(val, 0.0);
@@ -142,7 +142,7 @@ void test_polyregress_matrix_mat_get_row()
     CU_ASSERT_PTR_NOT_NULL_FATAL(mat);
     CU_ASSERT_PTR_NOT_NULL_FATAL(minfo);
     reset_test_matrix();
-    unsigned icol;
+    mi_item_t icol;
     const pr_item_t expected_val = 5.0;
     mat_init(&mat, minfo, expected_val);
     mat_get_row(&mat, minfo, 0, &row);
@@ -158,7 +158,7 @@ void test_polyregress_matrix_mat_get_col()
     CU_ASSERT_PTR_NOT_NULL_FATAL(mat);
     CU_ASSERT_PTR_NOT_NULL_FATAL(minfo);
     reset_test_matrix();
-    unsigned irow;
+    mi_item_t irow;
     const pr_item_t expected_val = 2.0;
     mat_init(&mat, minfo, expected_val);
     mat_get_col(&mat, minfo, 0, &col);
@@ -174,8 +174,8 @@ void test_polyregress_matrix_mat_set_row()
     CU_ASSERT_PTR_NOT_NULL_FATAL(mat);
     CU_ASSERT_PTR_NOT_NULL_FATAL(minfo);
     reset_test_matrix();
-    unsigned icol;
-    const unsigned row_number = 0;
+    mi_item_t icol;
+    const mi_item_t row_number = 0;
     const pr_item_t expected_val = 1.0;
     mat_init(&mat, minfo, 0.0);
     mat_fill_vect(&row, minfo->nbcol, expected_val);
@@ -191,8 +191,8 @@ void test_polyregress_matrix_mat_swap_row()
     CU_ASSERT_PTR_NOT_NULL_FATAL(mat);
     CU_ASSERT_PTR_NOT_NULL_FATAL(minfo);
     reset_test_matrix();
-    unsigned icol;
-    const unsigned row_number = 0;
+    mi_item_t icol;
+    const mi_item_t row_number = 0;
     const pr_item_t expected_val = 1.0;
     const pr_item_t initial_val = 0.0;
     mat_init(&mat, minfo, initial_val);
@@ -214,9 +214,9 @@ void test_polyregress_matrix_mat_set_col()
     CU_ASSERT_PTR_NOT_NULL_FATAL(mat);
     CU_ASSERT_PTR_NOT_NULL_FATAL(minfo);
     reset_test_matrix();
-    unsigned irow;
-    const unsigned col_number = 0;
-    const unsigned col_offset = 0;
+    mi_item_t irow;
+    const mi_item_t col_number = 0;
+    const mi_item_t col_offset = 0;
     const pr_item_t expected_val = 1.0;
     const pr_item_t initial_val = 0.0;
     mat_init(&mat, minfo, initial_val);
@@ -232,8 +232,8 @@ void test_polyregress_matrix_mat_fill_vect()
 {
     reset_test_matrix();
     pr_vector_t vect;
-    const unsigned vlen = 1024;
-    const unsigned vlen_half = vlen / 2;
+    const mi_item_t vlen = 1024;
+    const mi_item_t vlen_half = vlen / 2;
     const pr_item_t initial_val = 0.0;
     const pr_item_t expected_val = 1.0;
     vect = malloc(sizeof(pr_item_t) * vlen);
@@ -251,7 +251,7 @@ void test_polyregress_matrix_mat_init()
     CU_ASSERT_PTR_NOT_NULL_FATAL(mat);
     CU_ASSERT_PTR_NOT_NULL_FATAL(minfo);
     reset_test_matrix();
-    unsigned icol, irow;
+    mi_item_t icol, irow;
     const pr_item_t initial_val = 3.0;
     mat_init(&mat, minfo, initial_val);
     for (irow = 0; irow < minfo->nbrow; irow++)

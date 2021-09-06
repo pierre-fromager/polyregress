@@ -36,19 +36,19 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
     pr_vector_t raw_data;
-    unsigned datacpt, degree;
+    mi_item_t datacpt, degree;
     degree = datacpt = 0;
     raw_data = malloc(sizeof(pr_item_t) * RAW_ARR_SIZE);
     populate_data(&raw_data, &datacpt, &degree, stdin);
     populate_check(datacpt, degree);
-    const unsigned nb_points = datacpt / 2;
+    const mi_item_t nb_points = datacpt / 2;
     minfo_t *minfo;
     minfo = malloc(sizeof(minfo_t));
     minfo->degree = degree;
     minfo->set_dim = mat_set_dim;
     minfo->set_dim(minfo);
     minfo->nbpoints = nb_points;
-    unsigned c;
+    mi_item_t c;
     points_t points;
     pr_vector_t mpc;
     pr_vector_t mat;

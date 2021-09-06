@@ -3,7 +3,7 @@
 
 pr_vector_t datapoints;
 point_t *points;
-unsigned nb_points;
+mi_item_t nb_points;
 
 const pr_item_t suite_points_data[] = {1.0, 0.0, 2.0, 2.0, 3.0, 1.0, 4.0, 4.0, 5.0, 2.0};
 const pr_item_t exptected_suite_points_x[SUITE_POINTS_NB_POINTS] = {1, 2, 3, 4, 5};
@@ -62,7 +62,7 @@ void test_polyregress_points_add_suite()
 
 void test_polyregress_points_points_init()
 {
-    unsigned pts_cpt;
+    mi_item_t pts_cpt;
     points_init(&datapoints, &points, nb_points);
     for (pts_cpt = 0; pts_cpt < SUITE_POINTS_NB_POINTS; pts_cpt++)
     {

@@ -25,7 +25,7 @@ static int setup(void)
     row = malloc(minfo->nbcol * sizeof(pr_item_t));
     points = malloc(SUITE_MATCAL_NB_POINTS * sizeof(point_t));
     mpc = malloc(SUITE_MATCAL_NB_POINTS * 2 * sizeof(pr_item_t));
-    unsigned ipoints;
+    mi_item_t ipoints;
     for (ipoints = 0; ipoints < SUITE_MATCAL_NB_POINTS; ipoints++)
     {
         points[ipoints].x = points_x[ipoints];
@@ -81,7 +81,7 @@ void test_polyregress_matcalc_add_suite()
 
 void test_polyregress_matcalc_matcalc_mpc()
 {
-    unsigned irow;
+    mi_item_t irow;
     matcalc_mpc(&mpc, &points, minfo);
     CU_ASSERT_EQUAL(*(mpc), SUITE_MATCAL_NB_POINTS);
     for (irow = 0; irow < minfo->nbrow; irow++)
@@ -92,7 +92,7 @@ void test_polyregress_matcalc_matcalc_rhs()
 {
     CU_ASSERT_PTR_NOT_NULL_FATAL(mat);
     CU_ASSERT_PTR_NOT_NULL_FATAL(minfo);
-    unsigned irow;
+    mi_item_t irow;
     const pr_item_t initial_val = 0.0;
     mat_init(&mat, minfo, initial_val);
     matcalc_rhs(&mat, &points, minfo);

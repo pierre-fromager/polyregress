@@ -67,10 +67,10 @@ void test_polyregress_gaussjordan_gauss_divide()
 {
     CU_ASSERT_PTR_NOT_NULL_FATAL(mat);
     CU_ASSERT_PTR_NOT_NULL_FATAL(minfo);
-    unsigned cpt_col;
+    mi_item_t cpt_col;
     const pr_item_t initial_value = 4.0;
     const pr_item_t expected_value = 1.0;
-    const unsigned row_index = 0;
+    const mi_item_t row_index = 0;
     mat_init(&mat, minfo, initial_value);
     gauss_divide(&mat, row_index, 0, minfo);
     mat_get_row(&mat, minfo, row_index, &row);
@@ -82,10 +82,10 @@ void test_polyregress_gaussjordan_gauss_eliminate()
 {
     CU_ASSERT_PTR_NOT_NULL_FATAL(mat);
     CU_ASSERT_PTR_NOT_NULL_FATAL(minfo);
-    unsigned cpt_col;
+    mi_item_t cpt_col;
     const pr_item_t initial_value = 1.0;
     const pr_item_t expected_eliminated_value = 0.0;
-    const unsigned row_index = 0;
+    const mi_item_t row_index = 0;
     mat_init(&mat, minfo, initial_value);
     gauss_eliminate(&mat, row_index, 0, minfo);
     mat_get_row(&mat, minfo, row_index, &row);
@@ -100,11 +100,11 @@ void test_polyregress_gaussjordan_gauss_echelonize()
 {
     CU_ASSERT_PTR_NOT_NULL_FATAL(mat);
     CU_ASSERT_PTR_NOT_NULL_FATAL(minfo);
-    unsigned cpt_col;
+    mi_item_t cpt_col;
     const pr_item_t initial_value = 12.0;
     const pr_item_t expected_echelonized_value = 1.0;
     const pr_item_t expected_eliminated_value = 0.0;
-    const unsigned row_index = 0;
+    const mi_item_t row_index = 0;
     mat_init(&mat, minfo, initial_value);
     gauss_echelonize(&mat, minfo);
     mat_get_row(&mat, minfo, row_index, &row);

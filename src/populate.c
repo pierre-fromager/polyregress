@@ -1,7 +1,7 @@
 
 #include "populate.h"
 
-void populate_data(pr_vector_t *rawArray, unsigned *datacpt, unsigned *degree, FILE *stream)
+void populate_data(pr_vector_t *rawArray, mi_item_t *datacpt, mi_item_t *degree, FILE *stream)
 {
     uint8_t degree_set = 0;
     char bufin[LINE_BUF_SIZE];
@@ -12,7 +12,7 @@ void populate_data(pr_vector_t *rawArray, unsigned *datacpt, unsigned *degree, F
         {
             if (degree_set == 0)
             {
-                (*degree) = (unsigned)atoi(value);
+                (*degree) = (mi_item_t)atoi(value);
                 degree_set = 1;
             }
             else
@@ -22,7 +22,7 @@ void populate_data(pr_vector_t *rawArray, unsigned *datacpt, unsigned *degree, F
     }
 }
 
-void populate_check(unsigned datacpt, unsigned degree)
+void populate_check(mi_item_t datacpt, mi_item_t degree)
 {
     if (datacpt % 2 != 0)
     {

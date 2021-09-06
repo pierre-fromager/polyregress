@@ -18,7 +18,7 @@ static char solution_get_sign(const pr_item_t value)
     return (value >= 0) ? SOL_STR_PLUS : SOL_STR_SPACE;
 }
 
-static char *solution_get_fmt(unsigned c)
+static char *solution_get_fmt(mi_item_t c)
 {
     switch (c)
     {
@@ -44,7 +44,7 @@ pr_vector_t solution_get(pr_vector_t *mat, minfo_t *minfo)
 
 void solution_get_str(pr_vector_t sol, minfo_t *minfo, char *str)
 {
-    unsigned c = 0;
+    mi_item_t c = 0;
     snprintf(str, (size_t)SOL_MAXLEN, solution_get_fmt(c), sol[c]);
     for (c = 1; c < minfo->nbcol - 1; c++)
         snprintf(str + strlen(str),

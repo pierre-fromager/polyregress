@@ -3,10 +3,10 @@
 
 void matcalc_mpc(pr_vector_t *mpc, points_t *points, minfo_t *minfo)
 {
-    unsigned cr, cl;
+    mi_item_t cr, cl;
     pr_item_t s;
     *(*mpc) = minfo->nbpoints;
-    const unsigned rs = (2 * minfo->degree) + 1;
+    const mi_item_t rs = (2 * minfo->degree) + 1;
     for (cr = 1; cr < rs; cr++)
     {
         s = 0;
@@ -18,7 +18,7 @@ void matcalc_mpc(pr_vector_t *mpc, points_t *points, minfo_t *minfo)
 
 void matcalc_rhs(pr_vector_t *mat, points_t *points, minfo_t *minfo)
 {
-    unsigned c, r;
+    mi_item_t c, r;
     pr_item_t rhs;
     rhs = 0;
     for (c = 0; c < minfo->nbpoints; ++c)

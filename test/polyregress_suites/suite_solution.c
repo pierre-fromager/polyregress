@@ -64,7 +64,7 @@ void test_polyregress_solution_solution_get()
 {
     CU_ASSERT_PTR_NOT_NULL_FATAL(mat);
     CU_ASSERT_PTR_NOT_NULL_FATAL(minfo);
-    unsigned c;
+    mi_item_t c;
     const pr_item_t initial_val = 0.0;
     const pr_item_t expected_val = 10.0;
     mat_init(&mat, minfo, initial_val);
