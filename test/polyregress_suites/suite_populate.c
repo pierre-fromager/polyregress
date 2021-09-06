@@ -1,7 +1,7 @@
 
 #include "suite_populate.h"
 
-pr_vector datapoints;
+pr_vector_t datapoints;
 point_t *points;
 unsigned nb_points;
 unsigned degree;
@@ -9,7 +9,7 @@ FILE *handle;
 const char *points_filename = "test/data/points.txt";
 const unsigned expected_degree = 4;
 const unsigned expected_nb_points = 10;
-const double expected_points[] = {1.0, 0.0, 2.0, 2.0, 3.0, 1.0, 4.0, 4.0, 5.0, 2.0};
+const pr_item_t expected_points[] = {1.0, 0.0, 2.0, 2.0, 3.0, 1.0, 4.0, 4.0, 5.0, 2.0};
 
 static int setup(void)
 {

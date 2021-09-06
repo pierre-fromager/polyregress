@@ -15,8 +15,8 @@
 
 #include "matrix.h"
 
-void gauss_divide(pr_vector *mat, unsigned i, unsigned j, minfo_t *minfo);
-void gauss_eliminate(pr_vector *mat, unsigned i, unsigned j, minfo_t *minfo);
-void gauss_echelonize(pr_vector *mat, minfo_t *minfo);
+void gauss_divide(pr_vector_t *mat, unsigned i, unsigned j, minfo_t *minfo);
+void gauss_eliminate(pr_vector_t *mat, unsigned i, unsigned j, minfo_t *minfo);
+void gauss_echelonize(pr_vector_t *mat, minfo_t *minfo);
 
 #endif // _POLYREG_GAUSS_JORDAN_

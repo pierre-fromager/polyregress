@@ -1,18 +1,18 @@
 
 #include "suite_points.h"
 
-pr_vector datapoints;
+pr_vector_t datapoints;
 point_t *points;
 unsigned nb_points;
 
-const double suite_points_data[] = {1.0, 0.0, 2.0, 2.0, 3.0, 1.0, 4.0, 4.0, 5.0, 2.0};
-const double exptected_suite_points_x[SUITE_POINTS_NB_POINTS] = {1, 2, 3, 4, 5};
-const double exptected_suite_points_y[SUITE_POINTS_NB_POINTS] = {0, 2, 1, 4, 2};
+const pr_item_t suite_points_data[] = {1.0, 0.0, 2.0, 2.0, 3.0, 1.0, 4.0, 4.0, 5.0, 2.0};
+const pr_item_t exptected_suite_points_x[SUITE_POINTS_NB_POINTS] = {1, 2, 3, 4, 5};
+const pr_item_t exptected_suite_points_y[SUITE_POINTS_NB_POINTS] = {0, 2, 1, 4, 2};
 
 static int setup(void)
 {
     nb_points = SUITE_POINTS_NB_POINTS * 2;
-    size_t datapoints_asize = (sizeof(double) * nb_points);
+    size_t datapoints_asize = (sizeof(pr_item_t) * nb_points);
     datapoints = malloc(datapoints_asize);
     memcpy(datapoints, &suite_points_data, datapoints_asize);
     points = malloc(sizeof(point_t) * SUITE_POINTS_NB_POINTS);

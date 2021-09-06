@@ -1,25 +1,25 @@
 
 #include "matcalc.h"
 
-void matcalc_mpc(pr_vector *mpc, points_t *points, minfo_t *minfo)
+void matcalc_mpc(pr_vector_t *mpc, points_t *points, minfo_t *minfo)
 {
     unsigned cr, cl;
-    double s;
+    pr_item_t s;
     *(*mpc) = minfo->nbpoints;
     const unsigned rs = (2 * minfo->degree) + 1;
     for (cr = 1; cr < rs; cr++)
     {
         s = 0;
         for (cl = 0; cl < minfo->nbpoints; cl++)
-            s += pow((*points)[cl].x, (double)cr);
+            s += pow((*points)[cl].x, (pr_item_t)cr);
         *(*mpc + cr) = s;
     }
 }
 
-void matcalc_rhs(pr_vector *mat, points_t *points, minfo_t *minfo)
+void matcalc_rhs(pr_vector_t *mat, points_t *points, minfo_t *minfo)
 {
     unsigned c, r;
-    double rhs;
+    pr_item_t rhs;
     rhs = 0;
     for (c = 0; c < minfo->nbpoints; ++c)
         rhs += (*points)[c].y;
@@ -32,7 +32,7 @@ void matcalc_rhs(pr_vector *mat, points_t *points, minfo_t *minfo)
     {
         rhs = 0;
         for (c = 0; c < minfo->nbpoints; c++)
-            rhs += pow((*points)[c].x, (double)r) * (*points)[c].y;
+            rhs += pow((*points)[c].x, (pr_item_t)r) * (*points)[c].y;
         mat_set_value(mat, r, minfo->nbcol - 1, minfo, rhs);
     }
 }

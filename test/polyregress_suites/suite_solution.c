@@ -1,8 +1,8 @@
 
 #include "suite_solution.h"
 
-pr_vector mat;
-pr_vector sol;
+pr_vector_t mat;
+pr_vector_t sol;
 char solstr[SOL_MAXLEN];
 minfo_t *minfo;
 
@@ -12,7 +12,7 @@ static int setup(void)
     minfo->degree = 4;
     minfo->nbcol = minfo->degree + 2;
     minfo->nbrow = minfo->degree + 1;
-    mat = malloc((minfo->nbcol * minfo->nbrow) * sizeof(double));
+    mat = malloc((minfo->nbcol * minfo->nbrow) * sizeof(pr_item_t));
     return 0;
 }
 
@@ -65,8 +65,8 @@ void test_polyregress_solution_solution_get()
     CU_ASSERT_PTR_NOT_NULL_FATAL(mat);
     CU_ASSERT_PTR_NOT_NULL_FATAL(minfo);
     unsigned c;
-    const double initial_val = 0.0;
-    const double expected_val = 10.0;
+    const pr_item_t initial_val = 0.0;
+    const pr_item_t expected_val = 10.0;
     mat_init(&mat, minfo, initial_val);
     sol = solution_get(&mat, minfo);
     for (c = 0; c < minfo->nbrow; c++)
@@ -87,7 +87,7 @@ void test_polyregress_solution_solution_get_str()
 {
     CU_ASSERT_PTR_NOT_NULL_FATAL(mat);
     CU_ASSERT_PTR_NOT_NULL_FATAL(minfo);
-    const double initial_val = 0.0;
+    const pr_item_t initial_val = 0.0;
     mat_init(&mat, minfo, initial_val);
     sol = solution_get(&mat, minfo);
     solution_get_str(sol, minfo, solstr);

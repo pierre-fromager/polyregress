@@ -1,9 +1,9 @@
 
 #include "suite_gaussjordan.h"
 
-pr_vector mat;
-pr_vector col;
-pr_vector row;
+pr_vector_t mat;
+pr_vector_t col;
+pr_vector_t row;
 minfo_t *minfo;
 
 static int setup(void)
@@ -12,9 +12,9 @@ static int setup(void)
     minfo->degree = 4;
     minfo->nbcol = minfo->degree + 2;
     minfo->nbrow = minfo->degree + 1;
-    mat = malloc((minfo->nbcol * minfo->nbrow) * sizeof(double));
-    col = malloc(minfo->nbrow * sizeof(double));
-    row = malloc(minfo->nbcol * sizeof(double));
+    mat = malloc((minfo->nbcol * minfo->nbrow) * sizeof(pr_item_t));
+    col = malloc(minfo->nbrow * sizeof(pr_item_t));
+    row = malloc(minfo->nbcol * sizeof(pr_item_t));
     return 0;
 }
 
@@ -68,15 +68,14 @@ void test_polyregress_gaussjordan_gauss_divide()
     CU_ASSERT_PTR_NOT_NULL_FATAL(mat);
     CU_ASSERT_PTR_NOT_NULL_FATAL(minfo);
     unsigned cpt_col;
-    const double initial_value = 4.0;
-    const double expected_value = 1.0;
+    const pr_item_t initial_value = 4.0;
+    const pr_item_t expected_value = 1.0;
     const unsigned row_index = 0;
-    const unsigned accuracy = 10;
     mat_init(&mat, minfo, initial_value);
     gauss_divide(&mat, row_index, 0, minfo);
     mat_get_row(&mat, minfo, row_index, &row);
     for (cpt_col = 0; cpt_col < minfo->nbcol; cpt_col++)
-        CU_ASSERT_DOUBLE_EQUAL(*(row + cpt_col), expected_value, accuracy);
+        CU_ASSERT_EQUAL(*(row + cpt_col), expected_value);
 }
 
 void test_polyregress_gaussjordan_gauss_eliminate()
@@ -84,18 +83,17 @@ void test_polyregress_gaussjordan_gauss_eliminate()
     CU_ASSERT_PTR_NOT_NULL_FATAL(mat);
     CU_ASSERT_PTR_NOT_NULL_FATAL(minfo);
     unsigned cpt_col;
-    const double initial_value = 1.0;
-    const double expected_eliminated_value = 0.0;
+    const pr_item_t initial_value = 1.0;
+    const pr_item_t expected_eliminated_value = 0.0;
     const unsigned row_index = 0;
-    const unsigned accuracy = 10;
     mat_init(&mat, minfo, initial_value);
     gauss_eliminate(&mat, row_index, 0, minfo);
     mat_get_row(&mat, minfo, row_index, &row);
     for (cpt_col = 0; cpt_col < minfo->nbcol; cpt_col++)
-        CU_ASSERT_DOUBLE_EQUAL(*(row + cpt_col), initial_value, accuracy);
+        CU_ASSERT_EQUAL(*(row + cpt_col), initial_value);
     mat_get_row(&mat, minfo, row_index + 1, &row);
     for (cpt_col = 0; cpt_col < minfo->nbcol; cpt_col++)
-        CU_ASSERT_DOUBLE_EQUAL(*(row + cpt_col), expected_eliminated_value, accuracy);
+        CU_ASSERT_EQUAL(*(row + cpt_col), expected_eliminated_value);
 }
 
 void test_polyregress_gaussjordan_gauss_echelonize()
@@ -103,17 +101,16 @@ void test_polyregress_gaussjordan_gauss_echelonize()
     CU_ASSERT_PTR_NOT_NULL_FATAL(mat);
     CU_ASSERT_PTR_NOT_NULL_FATAL(minfo);
     unsigned cpt_col;
-    const double initial_value = 12.0;
-    const double expected_echelonized_value = 1.0;
-    const double expected_eliminated_value = 0.0;
+    const pr_item_t initial_value = 12.0;
+    const pr_item_t expected_echelonized_value = 1.0;
+    const pr_item_t expected_eliminated_value = 0.0;
     const unsigned row_index = 0;
-    const unsigned accuracy = 10;
     mat_init(&mat, minfo, initial_value);
     gauss_echelonize(&mat, minfo);
     mat_get_row(&mat, minfo, row_index, &row);
     for (cpt_col = 0; cpt_col < minfo->nbcol; cpt_col++)
-        CU_ASSERT_DOUBLE_EQUAL(*(row + cpt_col), expected_echelonized_value, accuracy);
+        CU_ASSERT_EQUAL(*(row + cpt_col), expected_echelonized_value);
     mat_get_row(&mat, minfo, row_index + 1, &row);
     for (cpt_col = 0; cpt_col < minfo->nbcol; cpt_col++)
-        CU_ASSERT_DOUBLE_EQUAL(*(row + cpt_col), expected_eliminated_value, accuracy);
+        CU_ASSERT_EQUAL(*(row + cpt_col), expected_eliminated_value);
 }

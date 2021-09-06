@@ -1,18 +1,18 @@
 
 #include "gaussjordan.h"
 
-void gauss_divide(pr_vector *mat, unsigned i, unsigned j, minfo_t *minfo)
+void gauss_divide(pr_vector_t *mat, unsigned i, unsigned j, minfo_t *minfo)
 {
     unsigned q;
     for (q = j + 1; q < minfo->nbcol; q++)
     {
-        const double v = mat_get_value(mat, i, q, minfo) / mat_get_value(mat, i, j, minfo);
+        const pr_item_t v = mat_get_value(mat, i, q, minfo) / mat_get_value(mat, i, j, minfo);
         mat_set_value(mat, i, q, minfo, v);
     }
     mat_set_value(mat, i, j, minfo, 1.0);
 }
 
-void gauss_eliminate(pr_vector *mat, unsigned i, unsigned j, minfo_t *minfo)
+void gauss_eliminate(pr_vector_t *mat, unsigned i, unsigned j, minfo_t *minfo)
 {
     unsigned k, q;
     for (k = 0; k < minfo->nbrow; k++)
@@ -20,14 +20,14 @@ void gauss_eliminate(pr_vector *mat, unsigned i, unsigned j, minfo_t *minfo)
         {
             for (q = j + 1; q < minfo->nbcol; q++)
             {
-                const double v = mat_get_value(mat, k, q, minfo) - mat_get_value(mat, k, j, minfo) * mat_get_value(mat, i, q, minfo);
+                const pr_item_t v = mat_get_value(mat, k, q, minfo) - mat_get_value(mat, k, j, minfo) * mat_get_value(mat, i, q, minfo);
                 mat_set_value(mat, k, q, minfo, v);
             }
             mat_set_value(mat, k, j, minfo, 0.0);
         }
 }
 
-void gauss_echelonize(pr_vector *mat, minfo_t *minfo)
+void gauss_echelonize(pr_vector_t *mat, minfo_t *minfo)
 {
     unsigned i, j, k;
     i = j = 0;

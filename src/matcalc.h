@@ -17,7 +17,7 @@
 #include "points.h"
 #include "matrix.h"
 
-void matcalc_mpc(pr_vector *mpc, points_t *points, minfo_t *minfo);
-void matcalc_rhs(pr_vector *mat, points_t *points, minfo_t *minfo);
+void matcalc_mpc(pr_vector_t *mpc, points_t *points, minfo_t *minfo);
+void matcalc_rhs(pr_vector_t *mat, points_t *points, minfo_t *minfo);
 
 #endif // _POLYREG_MATCALC_

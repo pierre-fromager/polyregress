@@ -35,10 +35,10 @@ int main(int argc, char *argv[])
         printf(MSG_USG_1, argv[0]);
         exit(EXIT_FAILURE);
     }
-    pr_vector raw_data;
+    pr_vector_t raw_data;
     unsigned datacpt, degree;
     degree = datacpt = 0;
-    raw_data = malloc(sizeof(double) * RAW_ARR_SIZE);
+    raw_data = malloc(sizeof(pr_item_t) * RAW_ARR_SIZE);
     populate_data(&raw_data, &datacpt, &degree, stdin);
     populate_check(datacpt, degree);
     const unsigned nb_points = datacpt / 2;
@@ -50,12 +50,12 @@ int main(int argc, char *argv[])
     minfo->nbpoints = nb_points;
     unsigned c;
     points_t points;
-    pr_vector mpc;
-    pr_vector mat;
+    pr_vector_t mpc;
+    pr_vector_t mat;
 
     points = malloc(sizeof(point_t) * nb_points);
-    mpc = malloc(sizeof(double) * datacpt);
-    mat = malloc((minfo->nbcol * minfo->nbrow) * sizeof(double));
+    mpc = malloc(sizeof(pr_item_t) * datacpt);
+    mat = malloc((minfo->nbcol * minfo->nbrow) * sizeof(pr_item_t));
 
     points_init(&raw_data, &points, datacpt);
     free(raw_data);
