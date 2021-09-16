@@ -26,10 +26,7 @@ typedef unsigned mi_item_t;
 
 struct minfo_s
 {
-    mi_item_t degree;
-    mi_item_t nbcol;
-    mi_item_t nbrow;
-    mi_item_t nbpoints;
+    mi_item_t degree, nbcol, nbrow, nbpoints;
     minfo_ptr_t (*set_dim)(minfo_t *);
 };
 

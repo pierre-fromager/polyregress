@@ -69,8 +69,7 @@ void mat_set_col(pr_vector_t *mat, mi_item_t col, pr_vector_t *vect, minfo_t *mi
 void mat_print(pr_vector_t *mat, minfo_t *minfo, FILE *stream)
 {
     mi_item_t rows;
-    pr_vector_t rv;
-    fprintf(stream, "\n");
+    pr_vector_t rv;    
     rv = malloc(mat_row_asize(minfo));
     for (rows = 0; rows < minfo->nbrow; rows++)
     {
@@ -78,6 +77,7 @@ void mat_print(pr_vector_t *mat, minfo_t *minfo, FILE *stream)
         mat_print_vect(&rv, minfo->nbcol, stream);
     }
     free(rv);
+    fprintf(stream, "\n");
 }
 
 void mat_fill_vect(pr_vector_t *vect, mi_item_t size, pr_item_t value)

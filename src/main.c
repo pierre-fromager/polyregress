@@ -14,6 +14,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include "arguments.h"
 #include "gaussjordan.h"
 #include "matrix.h"
 #include "points.h"
@@ -21,7 +22,6 @@
 #include "matcalc.h"
 #include "solution.h"
 
-#define POLY_DEBUG
 #define MSG_USG_0 "Usage degree x0 y0 x1 y1 .. xn yn:\n"
 #define MSG_USG_1 "echo \"4 1 0 2 2 3 1 4 4 5 2\" | %s - \n"
 #define DSIZE 10
@@ -31,12 +31,8 @@ int main(int argc, char *argv[])
 {
     FILE *streamin = stdin;
     FILE *streamout = stdout;
-    if (argc < 2)
-    {
-        printf(MSG_USG_0);
-        printf(MSG_USG_1, argv[0]);
-        exit(EXIT_FAILURE);
-    }
+    arguments_t args;
+    arguments_process(argc, argv, &args);
     pr_vector_t raw_data;
     mi_item_t datacpt, degree;
     degree = datacpt = 0;
@@ -61,30 +57,22 @@ int main(int argc, char *argv[])
 
     points_init(&raw_data, &points, datacpt);
     free(raw_data);
-
     matcalc_mpc(&mpc, &points, minfo);
     mat_init(&mat, minfo, 0.0);
-#ifdef POLY_DEBUG
-    mat_print(&mat, minfo, streamout);
-#endif
+    if (args.debug)
+        mat_print(&mat, minfo, streamout);
     mat_set_row(&mat, 0, &mpc, minfo);
     for (c = 0; c < minfo->nbrow; ++c)
         mat_set_col(&mat, c, &mpc, minfo, c);
     free(mpc);
-
     matcalc_rhs(&mat, &points, minfo);
     free(points);
-
-#ifdef POLY_DEBUG
-    mat_print(&mat, minfo, streamout);
-#endif
+    if (args.debug)
+        mat_print(&mat, minfo, streamout);
     gauss_echelonize(&mat, minfo);
-#ifdef POLY_DEBUG
-    mat_print(&mat, minfo, streamout);
-    printf("\n");
-#endif
+    if (args.debug)
+        mat_print(&mat, minfo, streamout);
     solution_print(&mat, minfo, streamout);
-
     free(minfo);
     free(mat);
     return 0;
