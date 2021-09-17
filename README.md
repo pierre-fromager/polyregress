@@ -27,11 +27,11 @@ Then doc will be generated in the doc/html folder.
 
 Overview
 ``` 
-./polyregress --help
+./polyregress 
 ```
 Detail
 ```
-./polyregress --usage
+./polyregress -?
 ```
 
 The first number of the serie is the higher degree.  
@@ -44,6 +44,14 @@ echo "4 1 0 2 2 3 1 4 4 5 2" | ./polyregress -
 or
 ``` 
 ./polyregress - <<< "4 1 0 2 2 3 1 4 4 5 2"
+```
+or changing instream separator
+``` 
+./polyregress -s ',' - <<< "4,1,0,2,2,3,1,4,4,5,2"
+```
+or changing instream separator with debug
+``` 
+./polyregress -d -s ',' - <<< "4,1,0,2,2,3,1,4,4,5,2"
 ```
 
 ## Performance

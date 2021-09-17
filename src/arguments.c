@@ -2,11 +2,8 @@
 #include "arguments.h"
 
 static struct argp_option options[] = {
-    {"verbose", 'v', 0, 0, "Produce verbose output", 0},
     {"debug", 'd', 0, 0, "Enable debug", 1},
     {"separator", 's', "STRING1", 0, "Set separator", 2},
-    {"output", 'o', "OUTFILE", 3,
-     "Output to OUTFILE instead of to standard output", 4},
     {0}};
 
 static error_t parse_opt(int key, char *arg, struct argp_state *state)
@@ -21,13 +18,10 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state)
   case 'd':
     arguments->debug = 1;
     break;
-  case 'o':
-    arguments->outfile = arg;
-    break;
   case ARGP_KEY_ARG:
-    if (state->arg_num >= 2)
+    if (state->arg_num >= 1)
     {
-      //argp_usage(state);
+      argp_usage(state);
     }
     arguments->args[state->arg_num] = arg;
     break;
@@ -45,7 +39,6 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state)
 
 static void set_defaults(arguments_t *arguments)
 {
-  arguments->outfile = NULL;
   arguments->separator = " ";
   arguments->debug = 0;
 }
