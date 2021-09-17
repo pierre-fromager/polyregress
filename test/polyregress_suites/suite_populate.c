@@ -64,7 +64,7 @@ void test_polyregress_populate_populate_data()
     handle = fopen(points_filename, "r");
     if (handle != NULL)
     {
-        populate_data(&datapoints, &nb_points, &degree, handle);
+        populate_data(&datapoints, &nb_points, &degree, handle, " ");
         CU_ASSERT_EQUAL(degree, expected_degree);
         CU_ASSERT_EQUAL(nb_points, expected_nb_points);
         for (pts_cpt = 0; pts_cpt < expected_nb_points; pts_cpt++)

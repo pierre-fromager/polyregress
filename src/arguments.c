@@ -1,9 +1,6 @@
 
 #include "arguments.h"
 
-//static const char *argp_program_version = PORE_VERSION;
-//static const char *argp_program_bug_address = PORE_MAINT_EMAIL;
-
 static struct argp_option options[] = {
     {"verbose", 'v', 0, 0, "Produce verbose output", 0},
     {"debug", 'd', 0, 0, "Enable debug", 1},
@@ -25,14 +22,17 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state)
   case 'v':
     arguments->verbose = 1;
     break;
+  case 's':
+    arguments->separator = arg;
+    break;
   case 'd':
     arguments->debug = 1;
     break;
   case 'a':
-    arguments->string1 = arg;
+    //arguments->string1 = arg;
     break;
   case 'b':
-    arguments->string2 = arg;
+    //arguments->string2 = arg;
     break;
   case 'o':
     arguments->outfile = arg;

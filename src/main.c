@@ -22,8 +22,6 @@
 #include "matcalc.h"
 #include "solution.h"
 
-#define MSG_USG_0 "Usage degree x0 y0 x1 y1 .. xn yn:\n"
-#define MSG_USG_1 "echo \"4 1 0 2 2 3 1 4 4 5 2\" | %s - \n"
 #define DSIZE 10
 #define RAW_ARR_SIZE 2048
 
@@ -37,7 +35,7 @@ int main(int argc, char *argv[])
     mi_item_t datacpt, degree;
     degree = datacpt = 0;
     raw_data = malloc(sizeof(pr_item_t) * RAW_ARR_SIZE);
-    populate_data(&raw_data, &datacpt, &degree, streamin);
+    populate_data(&raw_data, &datacpt, &degree, streamin, args.separator);
     populate_check(datacpt, degree);
     const mi_item_t nb_points = datacpt / 2;
     minfo_t *minfo;

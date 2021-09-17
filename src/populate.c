@@ -1,13 +1,13 @@
 
 #include "populate.h"
 
-void populate_data(pr_vector_t *rawArray, mi_item_t *datacpt, mi_item_t *degree, FILE *stream)
+void populate_data(pr_vector_t *rawArray, mi_item_t *datacpt, mi_item_t *degree, FILE *stream,char *separator)
 {
     uint8_t degree_set = 0;
     char bufin[LINE_BUF_SIZE];
     while (fgets(bufin, LINE_BUF_SIZE, stream))
     {
-        char *value = strtok(bufin, DELIM);
+        char *value = strtok(bufin, separator);
         while (value)
         {
             if (degree_set == 0)
@@ -17,7 +17,7 @@ void populate_data(pr_vector_t *rawArray, mi_item_t *datacpt, mi_item_t *degree,
             }
             else
                 (*rawArray)[(*datacpt)++] = atof(value);
-            value = strtok(NULL, DELIM);
+            value = strtok(NULL, separator);
         }
     }
 }

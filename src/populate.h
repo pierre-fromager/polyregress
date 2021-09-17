@@ -20,7 +20,7 @@
 
 #include "matrix.h"
 
-void populate_data(pr_vector_t *rawArray, mi_item_t *datacpt, mi_item_t *degree, FILE *stream);
+void populate_data(pr_vector_t *rawArray, mi_item_t *datacpt, mi_item_t *degree, FILE *stream,char *separator);
 void populate_check(mi_item_t datacpt, mi_item_t degree);
 
 #endif // _POLYREG_POPULATE_
