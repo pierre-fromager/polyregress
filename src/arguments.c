@@ -4,13 +4,9 @@
 static struct argp_option options[] = {
     {"verbose", 'v', 0, 0, "Produce verbose output", 0},
     {"debug", 'd', 0, 0, "Enable debug", 1},
-    {"separator", 's', 0, 0, "Set separator", 2},
-    {"alpha", 'a', "STRING1", 0,
-     "Do something with STRING1 related to the letter A", 3},
-    {"bravo", 'b', "STRING2", 0,
-     "Do something with STRING2 related to the letter B", 4},
-    {"output", 'o', "OUTFILE", 0,
-     "Output to OUTFILE instead of to standard output", 5},
+    {"separator", 's', "STRING1", 0, "Set separator", 2},
+    {"output", 'o', "OUTFILE", 3,
+     "Output to OUTFILE instead of to standard output", 4},
     {0}};
 
 static error_t parse_opt(int key, char *arg, struct argp_state *state)
@@ -19,20 +15,11 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state)
 
   switch (key)
   {
-  case 'v':
-    arguments->verbose = 1;
-    break;
   case 's':
     arguments->separator = arg;
     break;
   case 'd':
     arguments->debug = 1;
-    break;
-  case 'a':
-    //arguments->string1 = arg;
-    break;
-  case 'b':
-    //arguments->string2 = arg;
     break;
   case 'o':
     arguments->outfile = arg;
@@ -59,10 +46,7 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state)
 static void set_defaults(arguments_t *arguments)
 {
   arguments->outfile = NULL;
-  arguments->string1 = "";
-  arguments->string2 = "";
   arguments->separator = " ";
-  arguments->verbose = 0;
   arguments->debug = 0;
 }
 

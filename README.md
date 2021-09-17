@@ -25,12 +25,25 @@ Then doc will be generated in the doc/html folder.
 
 ## Usage
 
+Overview
+``` 
+./polyregress --help
+```
+Detail
+```
+./polyregress --usage
+```
+
 The first number of the serie is the higher degree.  
 The following numbers are XY points and should be paired.  
 Degree can't be higner than the number of XY points.  
 
 ``` 
 echo "4 1 0 2 2 3 1 4 4 5 2" | ./polyregress -
+```
+or
+``` 
+./polyregress - <<< "4 1 0 2 2 3 1 4 4 5 2"
 ```
 
 ## Performance
@@ -87,7 +100,7 @@ to run tests with or without options (bci)
 
 ## Todo
 
-* Add features from arguments flags.
+* Add features from arguments flags (WIP).
 * Populate data from various file format (csv,..).
 
 ## Links
