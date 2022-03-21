@@ -3,12 +3,12 @@
  * @author Pierre Fromager (info@pier-infor.fr)
  * @brief cunit main suite runner
  * All suites and tests should run from cunit v1.3 to v3.2.7(latest)
- * 
+ *
  * @version 0.1
  * @date 2021-09-05
  * @url https://gitlab.com/cunity/cunit
  * @copyright Copyright (c) 2021
- * 
+ *
  */
 
 #include <CUnit/Basic.h>
@@ -17,12 +17,13 @@
 #include <getopt.h>
 #include <string.h>
 #include <stdio.h>
-#include "polyregress_suites/suite_gaussjordan.h"
-#include "polyregress_suites/suite_points.h"
-#include "polyregress_suites/suite_matcalc.h"
-#include "polyregress_suites/suite_matrix.h"
-#include "polyregress_suites/suite_solution.h"
-#include "polyregress_suites/suite_populate.h"
+#include <typesdefs.h>
+#include <test/suite_gaussjordan.h>
+#include <test/suite_points.h>
+#include <test/suite_matcalc.h>
+#include <test/suite_matrix.h>
+#include <test/suite_solution.h>
+#include <test/suite_populate.h>
 
 int main(int argc, char *argv[])
 {
@@ -118,7 +119,7 @@ int main(int argc, char *argv[])
 	switch (interface)
 	{
 	case interface_basic:
-		//CU_basic_set_mode(CU_BRM_SILENT);
+		// CU_basic_set_mode(CU_BRM_SILENT);
 		CU_basic_set_mode(CU_BRM_VERBOSE);
 		CU_basic_run_tests();
 		break;

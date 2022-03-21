@@ -1,7 +1,7 @@
 
 #include "populate.h"
 
-void populate_data(pr_vector_t *rawArray, mi_item_t *datacpt, mi_item_t *degree, FILE *stream,char *separator)
+void populate_data(pr_vector_t *rawArray, mi_item_t *datacpt, mi_item_t *degree, FILE *stream, char *separator)
 {
     uint8_t degree_set = 0;
     char bufin[LINE_BUF_SIZE];
@@ -17,6 +17,7 @@ void populate_data(pr_vector_t *rawArray, mi_item_t *datacpt, mi_item_t *degree,
             }
             else
                 (*rawArray)[(*datacpt)++] = atof(value);
+
             value = strtok(NULL, separator);
         }
     }

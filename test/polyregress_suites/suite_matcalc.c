@@ -1,19 +1,15 @@
 
-#include "suite_matcalc.h"
+#include <test/suite_matcalc.h>
 
-pr_vector_t mat;
-pr_vector_t col;
-pr_vector_t row;
-minfo_t *minfo;
-point_t *points;
-pr_vector_t mpc;
-mi_item_t ipoints;
-mi_item_t irow;
+static pr_vector_t mat, col, row, mpc;
+static minfo_t *minfo;
+static point_t *points;
+static mi_item_t irow;
+static pr_vector_t datapoints;
 
-const pr_item_t points_x[SUITE_MATCAL_NB_POINTS] = {1, 2, 3, 4, 5};
-const pr_item_t points_y[SUITE_MATCAL_NB_POINTS] = {0, 2, 1, 4, 2};
-const pr_item_t expected_mpc[SUITE_MATCAL_NB_POINTS] = {5.0, 15.0, 55.0, 225.0, 979.0};
-const pr_item_t expected_rhs[SUITE_MATCAL_NB_POINTS] = {9.0, 33.0, 131.0, 549.0, 2387.0};
+static const pr_item_t suite_points_data[] = {1.0, 0.0, 2.0, 2.0, 3.0, 1.0, 4.0, 4.0, 5.0, 2.0};
+static const pr_item_t expected_mpc[SUITE_MATCAL_NB_POINTS] = {5.0, 15.0, 55.0, 225.0, 979.0};
+static const pr_item_t expected_rhs[SUITE_MATCAL_NB_POINTS] = {9.0, 33.0, 131.0, 549.0, 2387.0};
 
 void reset_test_matcalc()
 {
@@ -21,21 +17,20 @@ void reset_test_matcalc()
     minfo->set_dim = mat_set_dim;
     minfo->set_dim(minfo);
     minfo->nbpoints = SUITE_MATCAL_NB_POINTS;
-    for (ipoints = 0; ipoints < minfo->nbpoints; ipoints++)
-    {
-        points[ipoints].x = points_x[ipoints];
-        points[ipoints].y = points_y[ipoints];
-    }
+    points_init(&datapoints, &points, SUITE_MATCAL_NB_POINTS * 2);
 }
 
 static int suite_setup(void)
 {
     minfo = malloc(sizeof(minfo_t));
+    size_t datapoints_asize = (sizeof(pr_item_t) * SUITE_MATCAL_NB_POINTS * 2);
+    datapoints = malloc(datapoints_asize);
+    memcpy(datapoints, &suite_points_data, datapoints_asize);
+    points = malloc((SUITE_MATCAL_NB_POINTS * sizeof(point_t)));
     reset_test_matcalc();
     mat = malloc((minfo->nbcol * minfo->nbrow) * sizeof(pr_item_t));
     col = malloc(minfo->nbrow * sizeof(pr_item_t));
     row = malloc(minfo->nbcol * sizeof(pr_item_t));
-    points = malloc(SUITE_MATCAL_NB_POINTS * sizeof(point_t));
     mpc = malloc(SUITE_MATCAL_NB_POINTS * 2 * sizeof(pr_item_t));
     reset_test_matcalc();
     return 0;
@@ -49,6 +44,7 @@ static int suite_teardown(void)
     free(mat);
     free(points);
     free(mpc);
+    free(datapoints);
     return 0;
 }
 

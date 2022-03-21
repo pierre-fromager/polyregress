@@ -1,6 +1,6 @@
 # Polyregress
 
-Polyregress is a c99 portage from initial [python polyregress solver](https://arachnoid.com/polysolve/).  
+Polyregress is a c11 portage from initial [python polyregress solver](https://arachnoid.com/polysolve/).  
 It provides polynomial equation from a cloud of points.  
 Higher is the polynomial degree, higher is the accuracy for data fitting.  
 Keep in mind one degree of polynome represents one inflexion.  
@@ -82,34 +82,32 @@ Input buffer is limited to 2048 bytes but you can change it in main.
 
 ## Tests
 
-Tests are based on [CUnity/Cunit framework](https://gitlab.com/cunity/cunit).  
-Setup from Debian package (old release ...v2.1)   
-``` 
-sudo apt-get install libcunit1 libcunit1-dev 
-```
-Or build from source (fresh release v3.2.7), clone repo and follow the Readme.  
+Tests relied on [CUnity/Cunit framework](https://gitlab.com/cunity/cunit).  
+Build from source (Release v3.2.7), clone repo and follow the Readme.  
 Then
 ``` 
 make
 sudo make install
 ```
-I recommend to build from source because setup and teardown can be done both on suite and test.
-
-Build tests from root project.  
+Build all from root project.  
 
 ``` 
-make
-make test
+./buildall.sh
 ```
-to run tests with or without options (bci)
+## Coverage
+
+To generate code coverage
+
 ``` 
-./polyregress_test <options>
+./covreport.sh
 ```
+
+Report can be found in doc/covsrc.
+
+![covreport](doc/assets/img/coverage.jpg)
 
 ## Todo
-
-* Add features from arguments flags (WIP).
-* Populate data from various file format (csv,..).
+* improve tests with coverage
 
 ## Links
 

@@ -1,10 +1,8 @@
 
-#include "suite_gaussjordan.h"
+#include <test/suite_gaussjordan.h>
 
-pr_vector_t mat;
-pr_vector_t col;
-pr_vector_t row;
-minfo_t *minfo;
+static pr_vector_t mat, col, row;
+static minfo_t *minfo;
 
 void reset_test_gaussjordan()
 {

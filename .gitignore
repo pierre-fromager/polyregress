@@ -1,10 +1,16 @@
 *.o
 *.py
+*.gcda
+*.gcno
 .vscode
+*.info
+*.html
 polyregress
 polyregress_test
 !test/polyregress/
 doc/html
+doc/covsrc
+doc/covtst
 callgrind.*
 .~lock.*
 *.csv
