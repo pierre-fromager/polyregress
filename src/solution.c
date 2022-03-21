@@ -1,5 +1,5 @@
 
-#include "solution.h"
+#include <solution.h>
 
 static void solution_remove_space(char *str)
 {
@@ -34,12 +34,9 @@ static char *solution_get_fmt(mi_item_t c)
     }
 }
 
-pr_vector_t solution_get(pr_vector_t *mat, minfo_t *minfo)
+void solution_get(pr_vector_t *mat, minfo_t *minfo, pr_vector_t *sol)
 {
-    pr_vector_t sol;
-    sol = malloc(sizeof(pr_item_t) * minfo->nbcol);
-    mat_get_col(mat, minfo, minfo->nbcol - 1, &sol);
-    return sol;
+    mat_get_col(mat, minfo, minfo->nbcol - 1, sol);
 }
 
 void solution_get_str(pr_vector_t sol, minfo_t *minfo, char *str)
@@ -58,7 +55,8 @@ void solution_get_str(pr_vector_t sol, minfo_t *minfo, char *str)
 
 void solution_print(pr_vector_t *mat, minfo_t *minfo, FILE *stream)
 {
-    pr_vector_t sol = solution_get(mat, minfo);
+    pr_vector_t sol = malloc(sizeof(pr_item_t) * minfo->nbcol);
+    solution_get(mat, minfo,&sol);
     char str[SOL_MAXLEN];
     solution_get_str(sol, minfo, str);
     solution_remove_space(str);

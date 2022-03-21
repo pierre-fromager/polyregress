@@ -1,8 +1,11 @@
 CXX = gcc
 CC = $(CXX)
-#-ftest-coverage -fprofile-arcs -lgcov 
-CFLAGS = -O2 -Werror -Wall -Wextra -Wpedantic -std=c99 -lm \
-	-s -g -fno-asm \
+
+# -Wno-unused-const-variable -Wno-unused-variable -Wno-error=unused-parameter
+
+CFLAGS = -O2 -Werror -Wall -Wextra -Wpedantic -std=c11 \
+	-I./src/include -g -fno-asm --coverage \
+	-ftest-coverage -fprofile-arcs -lgcov \
 	-Wno-format-nonliteral \
 	-Wformat=2 -Wformat-security \
 	-Wnull-dereference -Wstack-protector -Wtrampolines -Wvla \
@@ -11,8 +14,8 @@ CFLAGS = -O2 -Werror -Wall -Wextra -Wpedantic -std=c99 -lm \
 	-Wconversion -Wlogical-op -Wduplicated-cond \
 	-Wformat-signedness -Wshadow -Wstrict-overflow=4 \
 	-Wundef -Wstrict-prototypes -Wswitch-default -Wswitch-enum \
-	-Wstack-usage=1000000 \
-	-D_FORTIFY_SOURCE=2 #\
+	-Wstack-usage=100000 \
+	-D_FORTIFY_SOURCE=2 \
 	-fstack-protector-strong -fPIE -fsanitize=address \
 	-fsanitize=leak -fno-omit-frame-pointer -fsanitize=undefined \
 	-fsanitize=bounds-strict -fsanitize=float-divide-by-zero \
@@ -25,6 +28,8 @@ TO_TEST_FILES = $(filter-out src/main.c, $(SRC_FILES))
 OBJECTS = $(SRC_FILES:%.c=%.o)
 OBJECTSCOVO = $(SRC_FILES:%.c=%.gcno)
 OBJECTSCOVA = $(SRC_FILES:%.c=%.gcda)
+TSTOBJECTSCOVO = $(TST_FILES:%.c=%.gcno)
+TSTOBJECTSCOVA = $(TST_FILES:%.c=%.gcda)
 OBJECTS_TO_TEST = $(TO_TEST_FILES:%.c=%.o)
 OBJECTS_TEST = $(TST_FILES:%.c=%.o)
 TARGET = polyregress
@@ -34,13 +39,16 @@ TARGET_TEST = polyregress_test
 	all: $(TARGET) $(TARGET_TEST)
 
 $(TARGET): $(OBJECTS)
-	$(LINK.c) $^ $(LOADLIBES) $(LDLIBS) -o $@
+	$(LINK.c) $^ $(LOADLIBES) $(LDLIBS) -lm -o $@
 
 .PHONY: clean
 clean:
 	rm -rf $(TARGET) $(OBJECTS)
 	rm -rf $(TARGET) $(OBJECTSCOVO)
 	rm -rf $(TARGET) $(OBJECTSCOVA)
+	rm -rf $(TARGET_TEST) $(OBJECTS_TEST)
+	rm -rf $(TARGET_TEST) $(TSTOBJECTSCOVO)
+	rm -rf $(TARGET_TEST) $(TSTOBJECTSCOVA)
 
 .PHONY: trace
 trace:
@@ -64,11 +72,11 @@ cleandoc:
 
 .PHONY: check
 check:
-	cppcheck --check-config --enable=all --std=c99 --suppress=missingIncludeSystem ./src -I ./src
+	cppcheck --check-config --enable=all --std=c11 --suppress=missingIncludeSystem ./src -I./src/include
 
 .PHONY: test
 test:$(OBJECTS_TEST) 
-	$(CXX) $(OBJECTS_TO_TEST) $(OBJECTS_TEST) $(CFLAGS) -lcunit -o $(TARGET_TEST)
+	$(CXX) $(OBJECTS_TO_TEST) $(OBJECTS_TEST) $(CFLAGS) -I./src/include -lm -lcunit -o $(TARGET_TEST)
 
 .PHONY: cleantest
 cleantest:

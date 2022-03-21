@@ -7,8 +7,7 @@
  * @version 0.1
  * @date 2021-08-21
  * 
- * @copyright Copyright (c) 2021
- * @todo https://www.zend.com/generating-php-extension-skeleton
+ * @copyright Copyright (c) 2022
  * 
  */
 

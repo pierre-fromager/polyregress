@@ -1,10 +1,8 @@
 
-#include "suite_matrix.h"
+#include <test/suite_matrix.h>
 
-pr_vector_t mat;
-pr_vector_t col;
-pr_vector_t row;
-minfo_t *minfo;
+static pr_vector_t mat, col, row;
+static minfo_t *minfo;
 
 void reset_test_matrix()
 {

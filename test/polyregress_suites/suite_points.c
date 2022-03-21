@@ -1,13 +1,13 @@
 
-#include "suite_points.h"
+#include <test/suite_points.h>
 
-pr_vector_t datapoints;
-point_t *points;
-mi_item_t nb_points;
+static pr_vector_t datapoints;
+static point_t *points;
+static mi_item_t nb_points;
 
-const pr_item_t suite_points_data[] = {1.0, 0.0, 2.0, 2.0, 3.0, 1.0, 4.0, 4.0, 5.0, 2.0};
-const pr_item_t exptected_suite_points_x[SUITE_POINTS_NB_POINTS] = {1, 2, 3, 4, 5};
-const pr_item_t exptected_suite_points_y[SUITE_POINTS_NB_POINTS] = {0, 2, 1, 4, 2};
+static const pr_item_t suite_points_data[] = {1.0, 0.0, 2.0, 2.0, 3.0, 1.0, 4.0, 4.0, 5.0, 2.0};
+static const pr_item_t exptected_suite_points_x[SUITE_POINTS_NB_POINTS] = {1, 2, 3, 4, 5};
+static const pr_item_t exptected_suite_points_y[SUITE_POINTS_NB_POINTS] = {0, 2, 1, 4, 2};
 
 static int suite_setup(void)
 {
